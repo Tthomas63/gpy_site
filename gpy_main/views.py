@@ -47,6 +47,7 @@ def ulx_secret_key_communicate(request):
             print("Key accepted")
             context['msg'] = "Key accepted!"
             ulx_ranks = request.POST.get('ulx_ranks')
+            print(ulx_ranks)
             return HttpResponse(template.render(context, request))
         else:
             context['msg'] == "Key not accepted"

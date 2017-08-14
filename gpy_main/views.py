@@ -1,3 +1,5 @@
+from venv import logger
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.views import logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -44,6 +46,8 @@ def ulx_secret_key_communicate(request):
         print("Could not find a key, generate one.")
         context['msg'] = "Could not find a secret ULX key. Please generate one from Admin."
     if request.method == "POST":
+        print(request.POST.get)
+        logger.info(request.POST.get)
         client_key = request.POST.get("ulx_secret_key")
         if ulx_secret_key == client_key:
             print("Key accepted")

@@ -93,8 +93,7 @@ class UlxSecretKeyPage(View):
         print(request.POST.get)
         post = request.POST.get
         print(post)
-        myDict = dict(post.iterlists())
-        print(myDict)
+        print(request.POST)
         # (request.body)
         return JsonResponse({'status': True})
 

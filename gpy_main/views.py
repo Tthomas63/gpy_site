@@ -1,5 +1,7 @@
 from venv import logger
 
+import sys
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.views import logout
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,6 +12,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .forms import KeyForm
 from .models import UlxSecretKey
+import logging
+logger2 = logging.getLogger('django')
+logger = logging.getLogger('gpy_site')
+logger.info("Test")
+logger2.info("Test")
+logger.debug("Test2")
+logger2.debug("Test2")
+print("Test 3")
+sys.stdout.flush()
+
 
 # Create your views here.
 

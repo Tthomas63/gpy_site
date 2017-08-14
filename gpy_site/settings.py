@@ -215,6 +215,11 @@ LOGGING = {
         'gpy_site': {
             'handlers': ['console'],
             'level': 'INFO',
+        },
+        'django': {
+            'handlers': ['console'],
+            'level': 'INFO',
         }
     }
+
 }

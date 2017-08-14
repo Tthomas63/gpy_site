@@ -155,7 +155,7 @@ SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
 CSRF_TRUSTED_ORIGINS = [
-    '73.169.160.192',
+    'www.gmail.com',
 ]
 
 # Internationalization

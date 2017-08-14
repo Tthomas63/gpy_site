@@ -65,12 +65,15 @@ class UlxSecretKeyPage(View):
         # post = request.POST.get
         # print(post)
         # print(request.POST)
-        querydict = request.POST
-        my_dict = querydict.dict()
+        ulxquerydict = request.POST
+        ulxdict = ulxquerydict.dict()
         print(my_dict)
-        for k,v in my_dict.items():
-            print(k)
-            print(v)
+        for key,value in ulxdict.items():
+            print("Key is: {}".format(key))
+            print("Value is: {}".format(value))
+
+            print(ulxdict['ulx_ranks'])
+            print(ulxdict['ulx_secret_key'])
 
             # for steamid,rank in my_dict['ulx_ranks'].items():
             #     try:

@@ -12,7 +12,8 @@ from .forms import KeyForm
 from .models import UlxSecretKey
 
 # Create your views here.
-
+import logging
+logger = logging.getLogger('testlogger')
 
 class IndexView(View):
     def get(self, request):

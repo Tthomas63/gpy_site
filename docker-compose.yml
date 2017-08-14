@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    container_name: gpy_db
+  web:
+    build: .
+    command: python3 gpy_site/manage.py runserver 0.0.0.0:80
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+      - "80:80"
+    depends_on:
+      - db
+    container_name: gpy_django

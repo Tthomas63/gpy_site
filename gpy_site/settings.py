@@ -32,7 +32,9 @@ SECRET_KEY = '98^x1@sem@s78+5rcyku14!wq9tx51)_&0xx5ddj0jh(*wg4pz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'gpy-site.herokuapp.com',
+]
 
 # Application definition
 

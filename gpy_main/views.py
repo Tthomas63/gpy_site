@@ -15,12 +15,15 @@ from .models import UlxSecretKey
 import logging
 logger2 = logging.getLogger('django')
 logger = logging.getLogger('gpy_site')
+logger3 = logging.getLogger('gpy_main')
 logger.info("Test")
 logger2.info("Test")
+logger3.info("Test")
 logger.debug("Test2")
 logger2.debug("Test2")
+logger3.debug("test2")
 print("Test 3")
-sys.stdout.flush()
+
 
 
 # Create your views here.

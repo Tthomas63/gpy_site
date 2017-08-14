@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.template import loader
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import KeyForm
 from .models import UlxSecretKey
@@ -32,6 +33,7 @@ class LoginPage(View):
         return render(request, 'gpy_main/login_page.html')
 
 
+@csrf_exempt
 def ulx_secret_key_communicate(request):
     context = {}
     ulx_secret_key = 0

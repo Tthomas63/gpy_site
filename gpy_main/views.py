@@ -31,7 +31,6 @@ logger4 = logging.getLogger('web')
 # print("Test 3")
 
 
-
 # Create your views here.
 
 class IndexView(View):
@@ -55,7 +54,7 @@ class LoginPage(View):
         return render(request, 'gpy_main/login_page.html')
 
 
-@csrf_exempt
+# @csrf_exempt
 class UlxSecretKeyPage(View):
     def get(self, request):
         return render(request, 'gpy_main/key.html')

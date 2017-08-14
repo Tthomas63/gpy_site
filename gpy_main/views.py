@@ -67,7 +67,7 @@ class UlxSecretKeyPage(View):
         # print(request.POST)
         ulxquerydict = request.POST
         ulxdict = ulxquerydict.dict()
-        print(my_dict)
+        print(ulxdict)
         for key,value in ulxdict.items():
             print("Key is: {}".format(key))
             print("Value is: {}".format(value))

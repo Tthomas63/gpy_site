@@ -13,7 +13,8 @@ from .models import UlxSecretKey
 
 # Create your views here.
 import logging
-logger = logging.getLogger('testlogger')
+logging.config.dictConfig(LOGGING)
+logger = logging.getLogger('gpy_main')
 
 class IndexView(View):
     def get(self, request):
@@ -40,7 +41,7 @@ class LoginPage(View):
 def ulx_secret_key_communicate(request):
     context = {}
     ulx_secret_key = 0
-    template = loader.get_template('gpy_main/index.html')
+    template = loader.get_template('gpy_main/key.html')
 
     ulx_secret_key = UlxSecretKey.objects.all()[0]
     if request.method == "POST":

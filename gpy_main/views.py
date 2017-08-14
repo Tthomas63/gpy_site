@@ -72,12 +72,12 @@ class UlxSecretKeyPage(View):
             print(k)
             print(v)
 
-            for steamid,rank in my_dict['ulx_ranks'].items():
-                try:
-                    temp_user = SteamUser.objects.get(steamid=steamid)
-                    # temp_rank =
-
-                except ObjectDoesNotExist:
-                    print("Could not find user for {} steamid.".format(steamid))
+            # for steamid,rank in my_dict['ulx_ranks'].items():
+            #     try:
+            #         temp_user = SteamUser.objects.get(steamid=steamid)
+            #         # temp_rank =
+            #
+            #     except ObjectDoesNotExist:
+            #         print("Could not find user for {} steamid.".format(steamid))
         # (request.body)
         return JsonResponse({'status': True})

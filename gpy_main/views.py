@@ -91,9 +91,6 @@ class UlxSecretKeyPage(View):
     def post(self, request):
         #print(request.body)
         print(request.POST.get)
-        for k,v in request.POST.get:
-            print(k)
-            print(v)
         # (request.body)
         return JsonResponse({'status': True})
 

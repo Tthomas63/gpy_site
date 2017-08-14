@@ -154,6 +154,10 @@ SOCIAL_AUTH_STEAM_API_KEY = '4AD275A76183F7EF1E9A4191085FDCE1'
 SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 
+CSRF_TRUSTED_ORIGINS = [
+    '73.169.160.192',
+]
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 

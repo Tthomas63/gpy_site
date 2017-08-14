@@ -72,7 +72,7 @@ class UlxSecretKeyPage(View):
             print(k)
             print(v)
 
-            for steamid,rank in my_dict['ulx_ranks']:
+            for steamid,rank in my_dict['ulx_ranks'].items():
                 try:
                     temp_user = SteamUser.objects.get(steamid=steamid)
                     # temp_rank =

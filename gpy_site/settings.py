@@ -15,6 +15,10 @@ Credit to stefangeyer on github for SteamOpenID example!
 import os
 from social_core.pipeline.social_auth import social_user
 from social_core.pipeline.user import get_username
+import dj_database_url
+
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -97,6 +97,9 @@ class UlxSecretKeyPage(View):
         querydict = request.POST
         my_dict = querydict.dict()
         print(my_dict)
+        for k,v in my_dict:
+            print(k)
+            print(v)
         # (request.body)
         return JsonResponse({'status': True})
 

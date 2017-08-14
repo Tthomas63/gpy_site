@@ -48,6 +48,7 @@ class LoginPage(View):
 
 @csrf_exempt
 def ulx_secret_key_communicate(request):
+    print("My view was called.")
     context = {}
     ulx_secret_key = 0
     template = loader.get_template('gpy_main/key.html')

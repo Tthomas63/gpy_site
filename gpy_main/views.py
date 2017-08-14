@@ -91,6 +91,8 @@ class UlxSecretKeyPage(View):
     def post(self, request):
         #print(request.body)
         print(request.POST.get)
+        q = request.POST.get
+        print(q.getlist('ulx_players'))
         # (request.body)
         return JsonResponse({'status': True})
 

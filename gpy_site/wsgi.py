@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
+import logging
+logger = logging.getLogger('gpy_site')
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "gpy_site.settings")
 

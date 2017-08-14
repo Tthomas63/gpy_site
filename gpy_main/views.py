@@ -12,9 +12,6 @@ from .forms import KeyForm
 from .models import UlxSecretKey
 
 # Create your views here.
-import logging
-logging.config.dictConfig(LOGGING)
-logger = logging.getLogger('gpy_main')
 
 class IndexView(View):
     def get(self, request):

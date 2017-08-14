@@ -212,7 +212,7 @@ LOGGING = {
         }
     },
     'loggers': {
-        'testlogger': {
+        'gpy_site': {
             'handlers': ['console'],
             'level': 'INFO',
         }

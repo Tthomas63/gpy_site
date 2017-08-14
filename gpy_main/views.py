@@ -41,11 +41,8 @@ def ulx_secret_key_communicate(request):
     context = {}
     ulx_secret_key = 0
     template = loader.get_template('gpy_main/index.html')
-    try:
-        ulx_secret_key = UlxSecretKey.objects.all()[0]
-    except ObjectDoesNotExist:
-        print("Could not find a key, generate one.")
-        context['msg'] = "Could not find a secret ULX key. Please generate one from Admin."
+
+    ulx_secret_key = UlxSecretKey.objects.all()[0]
     if request.method == "POST":
         print(request.POST.get)
         logger.info(request.POST.get)
@@ -57,9 +54,13 @@ def ulx_secret_key_communicate(request):
             print(ulx_ranks)
             return HttpResponse(template.render(context, request))
         else:
+            print("Failed client key was different.")
+            logger.info("Failed client key was diff")
             context['msg'] == "Key not accepted"
             return HttpResponse(template.render(context, request))
     else:
+        print("Something else failed?")
+        logger.info("Failed.")
         return HttpResponse(template.render(context, request))
 
 

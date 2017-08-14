@@ -55,6 +55,7 @@ def ulx_secret_key_communicate(request):
 
     ulx_secret_key = UlxSecretKey.objects.all()[0]
     if request.method == "POST":
+        print("I GOT A POST REQUEST WEEEEEEEEEEEEEEEEE")
         print(request.POST.get)
         logger.info(request.POST.get)
         client_key = request.POST.get("ulx_secret_key")

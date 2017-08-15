@@ -82,22 +82,23 @@ class UlxSecretKeyPage(View):
                 print("Keys are a match. Continuing.")
 
                 ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
-                for steamid, group in ulx_dict_groups:
-                    try:
-                        temp_user = SteamUser.objects.get(steamid=steamid)
-                        print("Got user")
-                        temp_user.rank = group
-                        if group == "admin" or group == "superadmin":
-                            print("Making user staff and admin.")
-                            temp_user.is_admin = True
-                            temp_user.is_staff = True
-                            temp_user.save()
-                            if group == "superadmin":
-                                print("Making user super")
-                                temp_user.is_superuser = True
-                                temp_user.save()
-                    except ObjectDoesNotExist:
-                        print("Could not find an object for the requested user.")
-            except ObjectDoesNotExist:
+                print(ulx_dict_groups)
+            #     for steamid, group in ulx_dict_groups:
+            #         try:
+            #             temp_user = SteamUser.objects.get(steamid=steamid)
+            #             print("Got user")
+            #             temp_user.rank = group
+            #             if group == "admin" or group == "superadmin":
+            #                 print("Making user staff and admin.")
+            #                 temp_user.is_admin = True
+            #                 temp_user.is_staff = True
+            #                 temp_user.save()
+            #                 if group == "superadmin":
+            #                     print("Making user super")
+            #                     temp_user.is_superuser = True
+            #                     temp_user.save()
+            #         except ObjectDoesNotExist:
+            #             print("Could not find an object for the requested user.")
+            # except ObjectDoesNotExist:
                 print("Could not find a matching key.")
         return JsonResponse({'status': True})

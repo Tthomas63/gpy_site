@@ -78,15 +78,6 @@ class UlxSecretKeyPage(View):
                 print("Saving steamid {0} and rank {1} to user with nick {2}".format(k, v['rank'], v['nick']))
                 temp_user.steamid = k
                 temp_user.rank = v['rank']
-                if v['rank'] == "admin":
-                    print("Setting admin status")
-                    temp_user.is_admin = True
-                    temp_user.is_staff = True
-                if v['rank'] == "superadmin":
-                    print("Setting superadmin status")
-                    temp_user.is_admin = True
-                    temp_user.is_staff = True
-                    temp_user.is_superuser = True
                 temp_user.save()
             except ObjectDoesNotExist:
                 print("Could not find nick in users.")
@@ -101,11 +92,11 @@ class UlxSecretKeyPage(View):
                 try:
                     temp_user = SteamUser.objects.get(steamid=temp_steamid)
                     temp_user.rank = temp_group
-                    if temp_group == "admin" or temp_group == "superadmin":
+                    if temp_group == "admin" or temp_group == "superadmin" or temp_group == "developer":
                         print("Making user staff/admin.")
                         temp_user.is_staff = True
                         temp_user.is_admin = True
-                        if temp_group == "superadmin":
+                        if temp_group == "superadmin" or temp_group == "developer":
                             print("Making user superadmin.")
                             temp_user.is_superuser = True
                 except ObjectDoesNotExist:

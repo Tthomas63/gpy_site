@@ -79,7 +79,7 @@ class UlxSecretKeyPage(View):
             ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
             print("Ulx groups dict is: {}".format(ulx_dict_groups))
 
-            for userdata in ulx_dict_groups:
+            for userdata in ulx_dict_groups.items():
                 print(userdata)
 
             # try:

@@ -5,6 +5,8 @@ def get_username(strategy, uid, user=None, *args, **kwargs):
     """Removes unnecessary slugification and cleaning of the username since the uid is unique and well formed"""
     if not user:
         username = uid
+        print(username)
+        print(uid)
     else:
         username = strategy.storage.user.get_username(user)
     return {'username': username}
@@ -24,6 +26,8 @@ def user_details(user, details, strategy, *args, **kwargs):
             for name, value in details['player'].items():
                 if value is not None and hasattr(user, name):
                     current_value = getattr(user, name, None)
+                    print(current_value)
+                    print(str(getattr(user, name, None)))
                     if not current_value or name not in protected:
                         changed |= current_value != value
                         setattr(user, name, value)
@@ -35,6 +39,7 @@ def user_details(user, details, strategy, *args, **kwargs):
 def associate_existing_user(uid, *args, **kwargs):
     """If there already is an user with the given steamid, hand it over to the pipeline"""
     if SteamUser.objects.filter(steamid=uid).exists():
+        print(uid)
         return {
             'user': SteamUser.objects.get(steamid=uid)
         }

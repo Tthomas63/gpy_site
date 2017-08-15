@@ -87,4 +87,6 @@ class UlxSecretKeyPage(View):
                                 temp_user.is_superuser = True
                     except ObjectDoesNotExist:
                         print("No user found for steamid: {}".format(temp_steamid))
+                except ObjectDoesNotExist:
+                    print("Could not match keyes.")
         return JsonResponse({'status': True})

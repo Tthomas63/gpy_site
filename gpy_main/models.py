@@ -48,7 +48,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'steamid'
 
     rank = models.CharField(max_length=50, default="user")
-    steamid = models.CharField(max_length=17, unique=True)
+    steamid = models.CharField(max_length=20, unique=True)
     personaname = models.CharField(max_length=255)
     profileurl = models.CharField(max_length=300)
     avatar = models.CharField(max_length=255)

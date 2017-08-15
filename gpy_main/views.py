@@ -79,6 +79,9 @@ class UlxSecretKeyPage(View):
             ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
             print("Ulx groups dict is: {}".format(ulx_dict_groups))
 
+            for userdata in ulx_dict_groups:
+                print(userdata)
+
             # try:
             #     site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
             #     print("Keys are a match. Continuing.")

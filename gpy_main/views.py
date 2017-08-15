@@ -99,6 +99,6 @@ class UlxSecretKeyPage(View):
             #                     temp_user.save()
             #         except ObjectDoesNotExist:
             #             print("Could not find an object for the requested user.")
-            # except ObjectDoesNotExist:
-                print("Could not find a matching key.")
+             except ObjectDoesNotExist:
+                 print("Could not find a matching key.")
         return JsonResponse({'status': True})

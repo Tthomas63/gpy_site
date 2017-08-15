@@ -77,7 +77,7 @@ class UlxSecretKeyPage(View):
 
             ulx_secret_key = ulxdict['ulx_secret_key']
             ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
-            print(ulx_dict_groups)
+            print("Ulx groups dict is: {}".format(ulx_dict_groups))
 
             # try:
             #     site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)

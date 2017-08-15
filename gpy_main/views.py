@@ -73,6 +73,13 @@ class UlxSecretKeyPage(View):
             print(v)
             print(v['rank'])
             print(v['nick'])
+            try:
+                temp_user = SteamUser.objects.get(personaname=v['nick'])
+                print("Saving steamid {0} to user with nick {1}".format(v['nick'],k))
+                temp_user.steamid = k
+                temp_user.save()
+            except ObjectDoesNotExist:
+                print("Could not find nick in users.")
 
         for userdata in ulx_dict_groups.items():
             temp_steamid = userdata[0]

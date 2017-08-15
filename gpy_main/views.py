@@ -68,46 +68,46 @@ class UlxSecretKeyPage(View):
         ulx_dict_online_players = json.loads(ulxdict['ulx_online_players']) # Json serialize
         # print("Ulx groups dict is: {}".format(ulx_dict_groups))
 
-        for k,v in ulx_dict_online_players.items(): # Save any online players STEAMIDS to verify.
-            # print(k)
-            # print(v)
-            # print(v['rank'])
-            # print(v['nick'])
-            try:
-                temp_user = SteamUser.objects.get(personaname=v['nick'])
-                if temp_user.steamid != k:
-                    print("Saving steamid {0} and rank {1} to user with nick {2}".format(k, v['rank'], v['nick']))
-                    temp_user.steamid = k
-                    temp_user.rank = v['rank']
-                    temp_user.save()
-                else:
-                    # We do nothing!
-                    print("Use already has correct steamid.")
-            except ObjectDoesNotExist:
-                print("Could not find nick in users.")
+        try:
+            site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
+            print("Keys are a match. Continuing.")
 
-        for userdata in ulx_dict_groups.items():
-            temp_steamid = userdata[0]
-            temp_group = userdata[1]
+            for k,v in ulx_dict_online_players.items(): # Save any online players STEAMIDS to verify. k is steamid
+                # print(k)
+                # print(v)
+                # print(v['rank'])
+                # print(v['nick'])
+                try:
+                    temp_user = SteamUser.objects.get(personaname=v['nick'])
+                    if temp_user.steamid != k:
+                        print("Saving steamid {0} and rank {1} to user with nick {2}".format(k, v['rank'], v['nick']))
+                        temp_user.steamid = k
+                        temp_user.rank = v['rank']
+                        temp_user.save()
+                    else:
+                        # We do nothing!
+                        print("User {} already has correct steamid.".format(temp_user.personaname))
+                except ObjectDoesNotExist:
+                    print("Could not find nick in users.")
 
-            try:
-                site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
-                print("Keys are a match. Continuing.")
+            for userdata in ulx_dict_groups.items():
+                temp_steamid = userdata[0]
+                temp_group = userdata[1]
                 try:
                     temp_user = SteamUser.objects.get(steamid=temp_steamid)
                     if temp_user.rank != temp_group:
                         temp_user.rank = temp_group
                         if temp_group == "admin" or temp_group == "superadmin" or temp_group == "developer":
-                            print("Making user staff/admin.")
+                            print("Making user {} staff/admin.".format(temp_user.personaname))
                             temp_user.is_staff = True
                             temp_user.is_admin = True
                             if temp_group == "superadmin" or temp_group == "developer":
-                                print("Making user superadmin.")
+                                print("Making user {} superadmin.".format(temp_user.personaname))
                                 temp_user.is_superuser = True
                     else:
-                        print("User rank is staying the same")
+                        print("User {}'s rank is staying the same".format(temp_user.personaname))
                 except ObjectDoesNotExist:
                     print("No user found for steamid: {}".format(temp_steamid))
-            except ObjectDoesNotExist:
-                print("Could not match keyes.")
+        except ObjectDoesNotExist:
+            print("Could not match keyes.")
         return JsonResponse({'status': True})

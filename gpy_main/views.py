@@ -82,7 +82,7 @@ class UlxSecretKeyPage(View):
                 print("Keys are a match. Continuing.")
 
                 ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
-                for steamid, group in ulxdict['ulx_ranks']:
+                for steamid, group in ulx_dict_groups:
                     try:
                         temp_user = SteamUser.objects.get(steamid=steamid)
                         print("Got user")

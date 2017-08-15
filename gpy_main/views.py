@@ -81,17 +81,17 @@ class UlxSecretKeyPage(View):
                 site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
                 print("Keys are a match. Continuing.")
 
-                for steamid, group in ulxdict['ulx_ranks']:
+                for userdata in ulxdict['ulx_ranks']:
                     try:
-                        temp_user = SteamUser.objects.get(steamid=steamid)
+                        temp_user = SteamUser.objects.get(steamid=userdata[0])
                         print("Got user")
                         temp_user.rank = group
-                        if group == "admin" or group == "superadmin":
+                        if userdata[1] == "admin" or userdata[1] == "superadmin":
                             print("Making user staff and admin.")
                             temp_user.is_admin = True
                             temp_user.is_staff = True
                             temp_user.save()
-                            if group == "superadmin":
+                            if userdata[1] == "superadmin":
                                 print("Making user super")
                                 temp_user.is_superuser = True
                                 temp_user.save()

@@ -1,5 +1,7 @@
 import uuid
 
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 # Create your models here.
@@ -8,6 +10,24 @@ from django.contrib.auth.models import PermissionsMixin
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from steam import SteamID
+
+
+class UlxSecretKey(models.Model):
+    value = models.CharField(default=uuid.uuid4(), max_length=200)
+
+    def __str__(self):
+        return self.value
+
+
+class UlxDataStore(models.Model):
+    secret_key = models.ForeignKey(UlxSecretKey, related_name='ulx_secret_key')
+
+
+class UlxUserData(models.Model):
+    linked_store = models.ForeignKey(UlxDataStore, related_name="user_data")
+    rank = models.CharField(max_length=50)
+    steam_id = models.CharField(max_length=20, unique=True)
 
 
 class SteamUserManager(BaseUserManager):
@@ -55,6 +75,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatarmedium = models.CharField(max_length=255)
     avatarfull = models.CharField(max_length=255)
 
+    user_data = models.OneToOneField(UlxUserData, on_delete=models.CASCADE, primary_key=True,)
+
     # Add the other fields that can be retrieved from the Web-API if required
 
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
@@ -69,9 +91,29 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         return self.personaname
 
+    def get_steam2_id(self):
+        user_steam_id = SteamID(self.steamid)
+        return user_steam_id.as_steam2
 
-class UlxSecretKey(models.Model):
-    value = models.CharField(default=uuid.uuid4(), max_length=200)
+    def update_rank(self, group):
+        if self.rank != group:
+            self.rank = group
+            if group in settings.ULX_ADMIN_RANKS or group in settings.ULX_SUPER_RANKS:
+                print("Making user {} staff/admin.".format(self.personaname))
+                self.is_staff = True
+                self.is_admin = True
+                if group in settings.ULX_SUPER_RANKS:
+                    print("Making user {} superadmin.".format(self.personaname))
+                    self.is_superuser = True
+        else:
+            print("User {}'s rank is staying the same".format(self.personaname))
 
-    def __str__(self):
-        return self.value
+    def get_or_create_userdata(self):
+        try:
+            temp_user_data = self.user_data
+            return temp_user_data
+        except ObjectDoesNotExist:
+            temp_user_data = UlxUserData.objects.create(rank=self.rank,steam_id=self.steamid)
+            self.user_data = temp_user_data
+            self.save()
+            return self.user_data

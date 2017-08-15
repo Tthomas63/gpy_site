@@ -131,7 +131,8 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.social_user',
-    'social_core.pipeline.user.get_username',
+    # 'social_core.pipeline.user.get_username',
+    'gpy_main.pipeline.get_username',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
@@ -141,7 +142,6 @@ SOCIAL_AUTH_PIPELINE = (
     'gpy_main.pipeline.associate_existing_user',
     # The username for the account is always the steamid
     # 'social_core.pipeline.user.get_username', # Function to get the username was changed
-    'gpy_main.pipeline.get_username',
     # Update the user record with any changed info from the auth service.
     # 'social_core.pipeline.user.user_details',
     # Use a custom function for this, since the details are provided separately
@@ -155,6 +155,9 @@ SOCIAL_AUTH_STEAM_API_KEY = '4AD275A76183F7EF1E9A4191085FDCE1'
 SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 # SOCIAL_AUTH_STEAM_USER_FIELDS = ('username', 'email', 'steamid', 'date_joined')
+
+ULX_ADMIN_RANKS = ['admin']
+ULX_SUPER_RANKS = ['developer', 'owner', 'co-owner', 'superadmin']
 
 CSRF_TRUSTED_ORIGINS = [
     'www.gmail.com',

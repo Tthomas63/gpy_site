@@ -1,3 +1,5 @@
+from steam import SteamID
+
 from .models import SteamUser
 
 
@@ -5,8 +7,11 @@ def get_username(strategy, uid, user=None, *args, **kwargs):
     """Removes unnecessary slugification and cleaning of the username since the uid is unique and well formed"""
     if not user:
         username = uid
-        print(username)
-        print(uid)
+        # print(username)
+        # print(uid)
+        # user_steam_id = SteamID(uid)
+        # user_steam2_id = user_steam_id.as_steam2
+        # print(user_steam2_id)
     else:
         username = strategy.storage.user.get_username(user)
     return {'username': username}
@@ -23,11 +28,13 @@ def user_details(user, details, strategy, *args, **kwargs):
         # example username and id fields. It's also possible to disable update
         # on fields defined in SOCIAL_AUTH_PROTECTED_FIELDS.
         if details['player']:
+            # print(dir(details['player']))
             for name, value in details['player'].items():
                 if value is not None and hasattr(user, name):
                     current_value = getattr(user, name, None)
-                    print(current_value)
-                    print(str(getattr(user, name, None)))
+                    print("Name is {0} Value is {1}".format(name, value))
+                    # print(current_value)
+                    # print(str(getattr(user, name, None)))
                     if not current_value or name not in protected:
                         changed |= current_value != value
                         setattr(user, name, value)

@@ -20,3 +20,4 @@ gunicorn
 dj-database-url
 whitenoise
 django-organizations
+steam

@@ -69,18 +69,34 @@ class UlxSecretKeyPage(View):
         ulxdict = ulxquerydict.dict()
         print(ulxdict)
         for key,value in ulxdict.items():
-            print("Key is: {}".format(key))
-            print("Value is: {}".format(value))
+            # print("Key is: {}".format(key))
+            # print("Value is: {}".format(value))
 
             print(ulxdict['ulx_ranks'])
             print(ulxdict['ulx_secret_key'])
 
-            # for steamid,rank in my_dict['ulx_ranks'].items():
-            #     try:
-            #         temp_user = SteamUser.objects.get(steamid=steamid)
-            #         # temp_rank =
-            #
-            #     except ObjectDoesNotExist:
-            #         print("Could not find user for {} steamid.".format(steamid))
-        # (request.body)
+            ulx_secret_key = ulxdict['ulx_secret_key']
+
+            try:
+                site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
+                print("Keys are a match. Continuing.")
+
+                for steamid, group in ulxdict['ulx_ranks']:
+                    try:
+                        temp_user = SteamUser.objects.get(steamid=steamid)
+                        print("Got user")
+                        temp_user.rank = group
+                        if group == "admin" or group == "superadmin":
+                            print("Making user staff and admin.")
+                            temp_user.is_admin = True
+                            temp_user.is_staff = True
+                            temp_user.save()
+                            if group == "superadmin":
+                                print("Making user super")
+                                temp_user.is_superuser = True
+                                temp_user.save()
+                    except ObjectDoesNotExist:
+                        print("Could not find an object for the requested user.")
+            except ObjectDoesNotExist:
+                print("Could not find a matching key.")
         return JsonResponse({'status': True})

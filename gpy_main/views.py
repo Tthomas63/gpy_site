@@ -60,52 +60,31 @@ class UlxSecretKeyPage(View):
         return render(request, 'gpy_main/key.html')
 
     def post(self, request):
-        # print(request.body)
-        # print(request.POST.get)
-        # post = request.POST.get
-        # print(post)
-        # print(request.POST)
         ulxquerydict = request.POST
         ulxdict = ulxquerydict.dict()
         print(ulxdict)
         for key,value in ulxdict.items():
-            # print("Key is: {}".format(key))
-            # print("Value is: {}".format(value))
-
-            print(ulxdict['ulx_ranks'])
-            print(ulxdict['ulx_secret_key'])
-
             ulx_secret_key = ulxdict['ulx_secret_key']
             ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
             print("Ulx groups dict is: {}".format(ulx_dict_groups))
 
             for userdata in ulx_dict_groups.items():
-                print(userdata)
-                print(userdata[0])
-                print(userdata[1])
+                temp_steamid = userdata[0]
+                temp_group = userdata[1]
 
-            # try:
-            #     site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
-            #     print("Keys are a match. Continuing.")
-            #
-            #     ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
-            #     print(ulx_dict_groups)
-            #     for steamid, group in ulx_dict_groups:
-            #         try:
-            #             temp_user = SteamUser.objects.get(steamid=steamid)
-            #             print("Got user")
-            #             temp_user.rank = group
-            #             if group == "admin" or group == "superadmin":
-            #                 print("Making user staff and admin.")
-            #                 temp_user.is_admin = True
-            #                 temp_user.is_staff = True
-            #                 temp_user.save()
-            #                 if group == "superadmin":
-            #                     print("Making user super")
-            #                     temp_user.is_superuser = True
-            #                     temp_user.save()
-            #         except ObjectDoesNotExist:
-            #             print("Could not find an object for the requested user.")
-            #  except ObjectDoesNotExist:
-            #      print("Could not find a matching key.")
+                try:
+                    site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
+                    print("Keys are a match. Continuing.")
+                    try:
+                        temp_user = SteamUser.objects.get(steamid=temp_steamid)
+                        temp_user.rank = temp_group
+                        if temp_group == "admin" or temp_group == "superadmin":
+                            print("Making user staff/admin.")
+                            temp_user.is_staff = True
+                            temp_user.is_admin = True
+                            if temp_group == "superadmin":
+                                print("Making user superadmin.")
+                                temp_user.is_superuser = True
+                    except ObjectDoesNotExist:
+                        print("No user found for steamid: {}".format(temp_steamid))
         return JsonResponse({'status': True})

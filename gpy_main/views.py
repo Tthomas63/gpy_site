@@ -97,15 +97,15 @@ class UlxSecretKeyPage(View):
                     temp_user = SteamUser.objects.get(steamid=temp_steamid)
                     if temp_user.rank != temp_group:
                         temp_user.rank = temp_group
+                        if temp_group == "admin" or temp_group == "superadmin" or temp_group == "developer":
+                            print("Making user staff/admin.")
+                            temp_user.is_staff = True
+                            temp_user.is_admin = True
+                            if temp_group == "superadmin" or temp_group == "developer":
+                                print("Making user superadmin.")
+                                temp_user.is_superuser = True
                     else:
                         print("User rank is staying the same")
-                    if temp_group == "admin" or temp_group == "superadmin" or temp_group == "developer":
-                        print("Making user staff/admin.")
-                        temp_user.is_staff = True
-                        temp_user.is_admin = True
-                        if temp_group == "superadmin" or temp_group == "developer":
-                            print("Making user superadmin.")
-                            temp_user.is_superuser = True
                 except ObjectDoesNotExist:
                     print("No user found for steamid: {}".format(temp_steamid))
             except ObjectDoesNotExist:

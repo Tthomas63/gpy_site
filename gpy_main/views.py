@@ -68,14 +68,14 @@ class UlxSecretKeyPage(View):
         ulx_dict_online_players = json.loads(ulxdict['ulx_online_players']) # Json serialize
         # print("Ulx groups dict is: {}".format(ulx_dict_groups))
 
-        for k,v in ulx_dict_online_players.items():
-            print(k)
-            print(v)
-            print(v['rank'])
-            print(v['nick'])
+        for k,v in ulx_dict_online_players.items(): # Save any online players STEAMIDS to verify.
+            # print(k)
+            # print(v)
+            # print(v['rank'])
+            # print(v['nick'])
             try:
                 temp_user = SteamUser.objects.get(personaname=v['nick'])
-                print("Saving steamid {0} to user with nick {1}".format(v['nick'],k))
+                print("Saving steamid {0} to user with nick {1}".format(k, v['nick']))
                 temp_user.steamid = k
                 temp_user.save()
             except ObjectDoesNotExist:

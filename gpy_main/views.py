@@ -76,7 +76,7 @@ class UlxSecretKeyPage(View):
                     site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
                     print("Keys are a match. Continuing.")
                     try:
-                        temp_user = SteamUser.objects.get(steamid=temp_steamid)
+                        temp_user = SteamUser.objects.get(id=temp_steamid)
                         temp_user.rank = temp_group
                         if temp_group == "admin" or temp_group == "superadmin":
                             print("Making user staff/admin.")

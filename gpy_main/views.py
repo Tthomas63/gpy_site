@@ -81,7 +81,7 @@ class UlxSecretKeyPage(View):
 
             for userdata in ulx_dict_groups.items():
                 print(userdata)
-                for steamid, rank in userdata:
+                for steamid, rank in userdata.items():
                     print(steamid)
                     print(rank)
 

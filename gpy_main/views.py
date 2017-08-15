@@ -72,7 +72,7 @@ class UlxSecretKeyPage(View):
             print(k)
             print(v)
             print(v['rank'])
-            print(v['steamid'])
+            print(v['nick'])
 
         for userdata in ulx_dict_groups.items():
             temp_steamid = userdata[0]

@@ -14,7 +14,7 @@ def user_details(user, details, strategy, *args, **kwargs):
     """Update user details using data from provider."""
     if user:
         changed = False  # flag to track changes
-        protected = ('steamid', 'id', 'pk') + tuple(strategy.setting('PROTECTED_USER_FIELDS', []))
+        # protected = ('steamid', 'id', 'pk') + tuple(strategy.setting('PROTECTED_USER_FIELDS', []))
 
         # Update user model attributes with the new data sent by the current
         # provider. Update on some attributes is disabled by default, for

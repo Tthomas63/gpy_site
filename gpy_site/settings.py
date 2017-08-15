@@ -27,7 +27,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '98^x1@sem@s78+5rcyku14!wq9tx51)_&0xx5ddj0jh(*wg4pz'
+# Set the below in .env
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -151,7 +152,8 @@ SOCIAL_AUTH_PIPELINE = (
 
 AUTH_USER_MODEL = 'gpy_main.SteamUser'
 SOCIAL_AUTH_USER_MODEL = 'gpy_main.SteamUser'
-SOCIAL_AUTH_STEAM_API_KEY = '4AD275A76183F7EF1E9A4191085FDCE1'
+# Set the below line in .env
+SOCIAL_AUTH_STEAM_API_KEY = os.environ.get('API_KEY')
 SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 # SOCIAL_AUTH_STEAM_USER_FIELDS = ('username', 'email', 'steamid', 'date_joined')
@@ -159,9 +161,7 @@ SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 ULX_ADMIN_RANKS = ['admin']
 ULX_SUPER_RANKS = ['developer', 'owner', 'co-owner', 'superadmin']
 
-CSRF_TRUSTED_ORIGINS = [
-    'www.gmail.com',
-]
+CSRF_TRUSTED_ORIGINS = []
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

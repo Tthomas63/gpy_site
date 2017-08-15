@@ -76,13 +76,15 @@ class UlxSecretKeyPage(View):
             print(ulxdict['ulx_secret_key'])
 
             ulx_secret_key = ulxdict['ulx_secret_key']
+            ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
+            print(ulx_dict_groups)
 
-            try:
-                site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
-                print("Keys are a match. Continuing.")
-
-                ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
-                print(ulx_dict_groups)
+            # try:
+            #     site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)
+            #     print("Keys are a match. Continuing.")
+            #
+            #     ulx_dict_groups = json.loads(ulxdict['ulx_ranks'])
+            #     print(ulx_dict_groups)
             #     for steamid, group in ulx_dict_groups:
             #         try:
             #             temp_user = SteamUser.objects.get(steamid=steamid)
@@ -99,6 +101,6 @@ class UlxSecretKeyPage(View):
             #                     temp_user.save()
             #         except ObjectDoesNotExist:
             #             print("Could not find an object for the requested user.")
-             except ObjectDoesNotExist:
-                 print("Could not find a matching key.")
+            #  except ObjectDoesNotExist:
+            #      print("Could not find a matching key.")
         return JsonResponse({'status': True})

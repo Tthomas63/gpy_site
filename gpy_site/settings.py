@@ -154,7 +154,7 @@ SOCIAL_AUTH_USER_MODEL = 'gpy_main.SteamUser'
 SOCIAL_AUTH_STEAM_API_KEY = '4AD275A76183F7EF1E9A4191085FDCE1'
 SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
-SOCIAL_AUTH_STEAM_USER_FIELDS = ('username', 'email', 'steamid', 'date_joined')
+# SOCIAL_AUTH_STEAM_USER_FIELDS = ('username', 'email', 'steamid', 'date_joined')
 
 CSRF_TRUSTED_ORIGINS = [
     'www.gmail.com',

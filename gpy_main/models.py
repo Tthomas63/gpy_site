@@ -75,7 +75,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatarmedium = models.CharField(max_length=255)
     avatarfull = models.CharField(max_length=255)
 
-    user_data = models.OneToOneField(UlxUserData, on_delete=models.CASCADE, primary_key=True,)
+    user_data = models.OneToOneField(UlxUserData, on_delete=models.CASCADE, null=True)
 
     # Add the other fields that can be retrieved from the Web-API if required
 

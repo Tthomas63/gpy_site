@@ -1,33 +1,4 @@
-.base_background_image {
-    /*background-image: url("/static/pattern.jpg");*/
-    background-color: #555555;
-}
-.base_background_body {
-    background-color: #5bc0de;
-    text-align: center;
-}
-.base_background_head {
-    background-color: #dddddd;
-    text-align: center;
-}
-.base_background_content{
-    background-color: #faebcc;
-    width:80%;
-}
-.gpy_nav {
-    text-align: center;
-    background-color: #5bc0de;
-}
-
-.gpy_nav_image_padding {
-    padding-bottom: 20px;
-}
-
-html, body {
-    height: 100%;
-}
-.fill-height {
-    min-height: 100%;
-    height:auto !important; /* cross-browser */
-    height: 100%; /* cross-browser */
+html,
+body {
+  background-color: #761c19;
 }

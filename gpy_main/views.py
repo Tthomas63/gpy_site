@@ -4,7 +4,7 @@ import sys
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.views import logout
-from django.core.serializers import json
+import json
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect
 from django.template import loader

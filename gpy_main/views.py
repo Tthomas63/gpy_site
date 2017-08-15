@@ -81,6 +81,9 @@ class UlxSecretKeyPage(View):
 
             for userdata in ulx_dict_groups.items():
                 print(userdata)
+                for steamid, rank in userdata:
+                    print(steamid)
+                    print(rank)
 
             # try:
             #     site_ulx_secret_key = UlxSecretKey.objects.get(value=ulx_secret_key)

@@ -83,6 +83,7 @@ class UlxSecretKeyPage(View):
 
                 for userdata in ulxdict['ulx_ranks']:
                     try:
+                        print(userdata)
                         temp_user = SteamUser.objects.get(steamid=userdata[0])
                         print("Got user")
                         temp_user.rank = group

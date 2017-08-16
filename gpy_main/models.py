@@ -131,18 +131,12 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
             return self.user_data
 
     def get_or_create_gpy_profile(self):
-        try:
-            existing_profile = self.gpy_profile
-            print("Found profile for user")
-            if existing_profile is not None:
-                print("Profile is not none.")
-                return existing_profile
-            else:
-                print("New user profile.")
-                self.gpy_profile = GpyProfile.objects.create()
-                self.gpy_profile.save(commit=True)
-                return self.user_gpy_profile
-        except ObjectDoesNotExist:
-            self.gpy_profile = GpyProfile.objects.create()
-            self.gpy_profile.save(commit=True)
+        if hasattr(self, 'gpy_profile') and self.gpy_profile != None:
+            return getattr(self, 'gpy_profile')
+        else:
+            new_profile = GpyProfile.objects.create()
+            new_profile.save()
+            self.gpy_profile = new_profile
+            self.gpy_profile.save()
+            self.save()
             return self.gpy_profile

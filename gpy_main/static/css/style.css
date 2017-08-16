@@ -1,13 +1,17 @@
 html,
 body {
-  background-image: url("/static/dark-triangles.png");
+  /*background-image: url("/static/dark-triangles.png");*/
+  background: linear-gradient(180deg,
+  rgba(2,173,231,0.5),
+  rgba(184,93,92,0.82)),
+  url(/static/dark-triangles.png)
 }
 
-.bg-gpy-red {
-  margin-top: 6%;
-  background-color: #B85D5C;
-  height:75%;
-}
+/*.bg-gpy-red {*/
+  /*margin-top: 6%;*/
+  /*background-color: #B85D5C;*/
+  /*height:75%;*/
+/*}*/
 
 .gpy_navbar_padding {
   padding:5px;

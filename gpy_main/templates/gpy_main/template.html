@@ -70,16 +70,16 @@
                             <li class="dropdown-header">Authentication</li>
                             {% if user.is_authenticated %}
                                 <li>
+                                    <img class="gpy_navbar_avatar_border" style="padding: 5px;" src="{{ user.avatarmedium }}">
+                                </li>
+                                <li class="gpy_navbar_padding">
                                     <b>SteamID:</b>
                                     <u>{{ user.get_steam2_id }}</u>
                                 </li>
-                                <li>
+                                <li class="gpy_navbar_padding">
                                     <a class="btn btn-xs btn-primary" href="{{ user.profileurl }}">Steam-Profile</a>
                                 </li>
-                                <li>
-                                    <img style="padding: 5px;" src="{{ user.avatar }}">
-                                </li>
-                                <li>
+                                <li class="gpy_navbar_padding">
                                     <a class="btn btn-danger btn-xs" href="{% url "logout_page" %}">Logout</a>
                                 </li>
                             {% else %}

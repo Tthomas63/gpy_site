@@ -6,7 +6,7 @@ services:
     container_name: gpy_db
   web:
     build: .
-    command: python3 gpy_site/manage.py runserver 0.0.0.0:80
+    command: python3 manage.py runserver 0.0.0.0:80
     volumes:
       - .:/code
     ports:

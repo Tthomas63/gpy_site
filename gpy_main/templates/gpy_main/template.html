@@ -77,7 +77,11 @@
                                     <u>{{ user.get_steam2_id }}</u>
                                 </li>
                                 <li class="gpy_navbar_padding">
-                                    <a class="btn btn-xs btn-primary" href="{{ user.profileurl }}">Steam-Profile</a>
+                                    <b>Rank:</b>
+                                    <u>{{ user.rank }}</u>
+                                </li>
+                                <li class="gpy_navbar_padding">
+                                    <a class="btn btn-xs btn-primary" href="{{ user.profileurl }}" alt="steam_profile_avatar">Steam-Profile</a>
                                 </li>
                                 <li class="gpy_navbar_padding">
                                     <a class="btn btn-danger btn-xs" href="{% url "logout_page" %}">Logout</a>

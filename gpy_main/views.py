@@ -30,6 +30,11 @@ class IndexView(View):
         return render(request, 'gpy_main/index.html')
 
 
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'gpy_main/about.html')
+
+
 class LogoutView(View):
     def get(self, request):
         logout(request)

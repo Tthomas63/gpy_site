@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^gpy_main/', include('gpy_main.urls')),
     url('', include('social_django.urls', namespace='social')),
+    url(r'^about$', views.AboutView.as_view(), name='about'),
     url(r'^logout', login_required(views.LogoutView.as_view(), login_url='/'), name='logout'),
     url(r'^login_page$', views.LoginPage.as_view(), name='login_page'),
     url(r'^logout_page$', login_required(views.LogoutPage.as_view()), name='logout_page'),

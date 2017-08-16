@@ -7,10 +7,14 @@ body {
   url(/static/dark-triangles.png)
 }
 
-/*.bg-gpy-red {*/
-  /*margin-top: 6%;*/
+.panel-default > .panel-heading-custom {
+  background: #B85D5C;
+  color: #fff;
+  background-image:none;
+}
+
+/*.panel-red-heading {*/
   /*background-color: #B85D5C;*/
-  /*height:75%;*/
 /*}*/
 
 .gpy_navbar_padding {

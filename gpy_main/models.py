@@ -140,9 +140,9 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
             else:
                 print("New user profile.")
                 self.gpy_profile = GpyProfile.objects.create()
-                self.gpy_profile.save()
+                self.gpy_profile.save(commit=True)
                 return self.user_gpy_profile
         except ObjectDoesNotExist:
             self.gpy_profile = GpyProfile.objects.create()
-            self.gpy_profile.save()
+            self.gpy_profile.save(commit=True)
             return self.gpy_profile

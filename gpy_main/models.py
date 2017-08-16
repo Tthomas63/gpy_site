@@ -98,13 +98,16 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     def update_rank(self, group):
         if self.rank != group:
             self.rank = group
+            self.save()
             if group in settings.ULX_ADMIN_RANKS or group in settings.ULX_SUPER_RANKS:
                 print("Making user {} staff/admin.".format(self.personaname))
                 self.is_staff = True
                 self.is_admin = True
+                self.save()
                 if group in settings.ULX_SUPER_RANKS:
                     print("Making user {} superadmin.".format(self.personaname))
                     self.is_superuser = True
+                    self.save()
         else:
             print("User {}'s rank is staying the same".format(self.personaname))
 
@@ -117,3 +120,11 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
             self.user_data = temp_user_data
             self.save()
             return self.user_data
+
+#     def get_or_create_gpy_profile(self):
+#
+#
+# class SteamUserGpyProfile(models.Model):
+#     bio = models.CharField(max_length=600, default="")
+#     signature = models.CharField(max_length=200, default="")
+#     models.OneToOneField(SteamUser, on_delete=models.CASCADE, null=True)

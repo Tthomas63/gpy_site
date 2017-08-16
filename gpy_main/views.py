@@ -64,7 +64,7 @@ class UlxSecretKeyPage(View):
                 user_steamid = user_data[0]
                 user_group = user_data[1]
                 try:
-                    user = SteamUser.objects.get(steamid=steam2_to_steam64(user.steamid))
+                    user = SteamUser.objects.get(steamid=steam2_to_steam64(user_steamid))
                     user.update_rank(user_group)
                     user_data = user.get_or_create_userdata()
                     try:

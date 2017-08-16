@@ -75,23 +75,12 @@ def user_profile_edit_privacy(request, steam_id):
     print("poo")
     print(request.method)
     if request.method == "POST":
-        form = GpyProfileForm(request.POST, instance=viewed_user.gpy_profile)
+        viewed_user_profile = viewed_user.get_or_create_gpy_profile()
+        form = GpyProfileForm(request.POST, instance=viewed_user_profile)
         if form.is_valid():
-            print("PRINT MY FUCKING FORM DATA IS {}".format(form.cleaned_data))
-            print(viewed_user)
-            print(viewed_user.gpy_profile)
-            print(viewed_user.gpy_profile.bio)
-            print(viewed_user.gpy_profile.motto)
-            print(viewed_user.gpy_profile.signature)
-            # viewed_user_profile = viewed_user.get_or_create_gpy_profile()
-            # viewed_user.save()
-            # viewed_user_profile.bio = form.cleaned_data['bio']
-            # viewed_user_profile.signature = form.cleaned_data['signature']
-            # viewed_user_profile.motto = form.cleaned_data['motto']
-            # viewed_user.save()
-            # viewed_user_profile.save()
-            # viewed_user.user_gpy_profile.save()
             form.save()
+            viewed_user.gpy_profile.save()
+            viewed_user.save()
         # process the data in form.cleaned_data as required
         return HttpResponseRedirect("/profile/{}".format(viewed_user.steamid))
     else:

@@ -40,17 +40,17 @@
                                 <div class="alert-danger">
                                     <h2><u>User Motto/Signature</u></h2>
                                 </div>
-                                {{ viewed_user.gpy_profile.motto }}
+                                {{ viewed_user.gpy_profile.motto|markdownify|safe }}
                                 <div class="alert-warning">
                                     <h2><u>User Signature</u></h2>
                                 </div>
-                                {{ viewed_user.gpy_profile.signature }}
+                                {{ viewed_user.gpy_profile.signature|markdownify|safe }}
                             </div>
                             <div class="col-lg-8">
                                 <div class="alert-info">
                                     <h2><u>User Bio</u></h2>
                                 </div>
-                                    {{ viewed_user.gpy_profile.bio }}
+                                {{ viewed_user.gpy_profile.bio|markdownify|safe }}
                             </div>
                         </div>
                     </div>

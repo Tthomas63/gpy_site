@@ -1,6 +1,6 @@
 html,
 body {
-  background-color: #D35F5A;
+  background-color: #B85D5C;
 }
 
 .gpy_navbar_padding {
@@ -9,5 +9,5 @@ body {
 .gpy_navbar_avatar_border {
   border: solid black 5px;
   border-radius: 15px;
-  background-color: #D35F5A;;
+  background-color: #B85D5C;;
 }

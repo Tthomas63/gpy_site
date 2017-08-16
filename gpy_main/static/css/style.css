@@ -1,6 +1,12 @@
 html,
 body {
+  background-image: url("/static/dark-triangles.png");
+}
+
+.bg-gpy-red {
+  margin-top: 6%;
   background-color: #B85D5C;
+  height:75%;
 }
 
 .gpy_navbar_padding {

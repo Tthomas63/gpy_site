@@ -37,13 +37,19 @@
 
                     {# Display a form #}
                     <form action="{% url "profile_edit" steam_id=viewed_user.steamid %}" method="post" class="form">
+{#                        {% csrf_token %}#}
+{#                        {% bootstrap_form form %}#}
+{#                        {% buttons %}#}
+{#                            <button type="submit" class="btn btn-primary">#}
+{#                                {% bootstrap_icon "pencil" %} Submit#}
+{#                            </button>#}
+{#                        {% endbuttons %}#}
                         {% csrf_token %}
-                        {% bootstrap_form form %}
-                        {% buttons %}
-                            <button type="submit" class="btn btn-primary">
-                                {% bootstrap_icon "pencil" %} Submit
-                            </button>
-                        {% endbuttons %}
+                        {% bootstrap_form_errors form type='non_fields' %}
+                        {% bootstrap_field form.bio size='lg' placeholder=viewed_user.gpy_profile.bio %}
+                        {% bootstrap_field form.signature size='md' placeholder=viewed_user.gpy_profile.signature %}
+                        {% bootstrap_field form.motto size='sm' placeholder=viewed_user.gpy_profile.motto  %}
+                        {% buttons submit='Edit' reset="Cancel" %}{% endbuttons %}
                     </form>
 
                     {# Read the documentation for more information #}

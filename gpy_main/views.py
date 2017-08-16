@@ -2,22 +2,28 @@ from venv import logger
 
 import sys
 
+from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.views import logout
 import json
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, redirect
-from django.template import loader
+
+from django.forms import modelformset_factory
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http404, HttpResponseForbidden
+from django.shortcuts import render, redirect, render_to_response
+from django.template import loader, RequestContext
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.views.generic import UpdateView
 from steam import SteamID
 from steam.steamid import make_steam64
 
 from django.conf import settings
 
 from .utils import steam2_to_steam64
-from .forms import KeyForm
-from .models import UlxSecretKey, SteamUser, UlxDataStore, UlxUserData
+from .forms import GpyProfileForm
+from .models import UlxSecretKey, SteamUser, UlxDataStore, UlxUserData, GpyProfile
 import logging
 logger2 = logging.getLogger('django')
 logger = logging.getLogger('gpy_site')
@@ -49,6 +55,50 @@ class LogoutPage(View):
 class LoginPage(View):
     def get(self, request):
         return render(request, 'gpy_main/login_page.html')
+
+
+def user_profile_view(request, steam_id):
+    context = {}
+    if steam_id[0:5] == "STEAM":
+        steam_id = steam2_to_steam64(steam_id)
+    try:
+        viewed_user = SteamUser.objects.get(steamid=steam_id)
+        context['viewed_user'] = viewed_user
+    except ObjectDoesNotExist:
+        print("Could not find the requested user")
+        context['error'] = "Could not find a user for the requested steam id."
+    return render(request, 'gpy_main/profile.html', context)
+
+
+def user_profile_edit_privacy(request, steam_id):
+    viewed_user = SteamUser.objects.get(steamid=steam_id)
+    print("poo")
+    print(request.method)
+    if request.method == "POST":
+        form = GpyProfileForm(request.POST, instance=viewed_user.gpy_profile)
+        if form.is_valid():
+            print("PRINT MY FUCKING FORM DATA IS {}".format(form.cleaned_data))
+            print(viewed_user)
+            print(viewed_user.gpy_profile)
+            print(viewed_user.gpy_profile.bio)
+            print(viewed_user.gpy_profile.motto)
+            print(viewed_user.gpy_profile.signature)
+            # viewed_user_profile = viewed_user.get_or_create_gpy_profile()
+            # viewed_user.save()
+            # viewed_user_profile.bio = form.cleaned_data['bio']
+            # viewed_user_profile.signature = form.cleaned_data['signature']
+            # viewed_user_profile.motto = form.cleaned_data['motto']
+            # viewed_user.save()
+            # viewed_user_profile.save()
+            # viewed_user.user_gpy_profile.save()
+            form.save()
+        # process the data in form.cleaned_data as required
+        return HttpResponseRedirect("/profile/{}".format(viewed_user.steamid))
+    else:
+        form = GpyProfileForm()
+        print('poop')
+
+    return render(request, 'gpy_main/profile_edit.html', {'form': form, 'viewed_user': viewed_user})
 
 
 # @csrf_exempt

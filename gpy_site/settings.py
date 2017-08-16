@@ -29,6 +29,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 # Set the below in .env
 SECRET_KEY = os.environ.get('SECRET_KEY')
+print("Secret key is {}".format(SECRET_KEY))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,10 +55,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -78,6 +79,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
+                'django.template.context_processors.csrf',
             ],
         },
     },
@@ -161,7 +163,7 @@ SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 ULX_ADMIN_RANKS = ['admin']
 ULX_SUPER_RANKS = ['developer', 'owner', 'co-owner', 'superadmin']
 
-CSRF_TRUSTED_ORIGINS = []
+# CSRF_TRUSTED_ORIGINS = []
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

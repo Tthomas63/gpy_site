@@ -23,5 +23,13 @@ body {
 .gpy_navbar_avatar_border {
   border: solid black 5px;
   border-radius: 15px;
-  background-color: #B85D5C;;
+  background-color: #B85D5C;
+}
+.gpy_profile_avatar_border {
+  border: solid black 5px;
+  background-color: #B85D5C;
+  border-radius: 15px;
+  padding: 5px;
+  margin-top:2%;
+  margin-right:32%;
 }

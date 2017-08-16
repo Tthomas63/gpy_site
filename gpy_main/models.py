@@ -24,6 +24,12 @@ class UlxDataStore(models.Model):
     secret_key = models.ForeignKey(UlxSecretKey, related_name='ulx_secret_key')
 
 
+class GpyProfile(models.Model):
+    bio = models.CharField(max_length=600, default="")
+    signature = models.CharField(max_length=200, default="")
+    motto = models.CharField(max_length=100, default="")
+
+
 class UlxUserData(models.Model):
     linked_store = models.ForeignKey(UlxDataStore, related_name="user_data")
     rank = models.CharField(max_length=50)
@@ -45,6 +51,8 @@ class SteamUserManager(BaseUserManager):
         user = self.model(steamid=steamid, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+        user.get_or_create_gpy_profile()
+        user.get_or_create_userdata()
         return user
 
     def create_user(self, steamid, password=None, **extra_fields):
@@ -76,6 +84,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatarfull = models.CharField(max_length=255)
 
     user_data = models.OneToOneField(UlxUserData, on_delete=models.CASCADE, null=True)
+    gpy_profile = models.OneToOneField(GpyProfile, on_delete=models.CASCADE, null=True)
 
     # Add the other fields that can be retrieved from the Web-API if required
 
@@ -121,10 +130,19 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
             self.save()
             return self.user_data
 
-#     def get_or_create_gpy_profile(self):
-#
-#
-# class SteamUserGpyProfile(models.Model):
-#     bio = models.CharField(max_length=600, default="")
-#     signature = models.CharField(max_length=200, default="")
-#     models.OneToOneField(SteamUser, on_delete=models.CASCADE, null=True)
+    def get_or_create_gpy_profile(self):
+        try:
+            existing_profile = self.gpy_profile
+            print("Found profile for user")
+            if existing_profile is not None:
+                print("Profile is not none.")
+                return existing_profile
+            else:
+                print("New user profile.")
+                self.gpy_profile = GpyProfile.objects.create()
+                self.gpy_profile.save()
+                return self.user_gpy_profile
+        except ObjectDoesNotExist:
+            self.gpy_profile = GpyProfile.objects.create()
+            self.gpy_profile.save()
+            return self.gpy_profile

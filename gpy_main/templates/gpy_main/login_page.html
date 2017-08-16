@@ -1,7 +1,10 @@
 {% extends 'gpy_main/template.html' %}
 {% block content %}
-    <div align="center" class="row">
-        <div>
+    <div class="panel-heading">
+        <h3 class="panel-title">G-Py Index</h3>
+    </div>
+    <div class="panel-body">
+        <div class="jumbotron">
             <h3>Login:</h3>
             {% if user.is_authenticated %}
                 <p>You are already logged in. Log out?</p>

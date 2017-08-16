@@ -56,7 +56,10 @@
             </button>
             <a class="navbar-brand" href="{% url "index" %}">G-Py</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <div class="navbar-right">
+
+        </div>
+        <div id="navbar" class="navbar-right navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{% url "index" %}">Home</a></li>
                 <li><a href="{% url "about" %}">About</a></li>
@@ -69,7 +72,7 @@
                             <li class="dropdown-header">Authentication</li>
                             {% if user.is_authenticated %}
                                 <li>
-                                    <img class="gpy_navbar_avatar_border" style="padding: 5px;" src="{{ user.avatarmedium }}">
+                                    <img class="gpy_navbar_avatar_border" style="padding: 5px;" src="{{ user.avatarmedium }}" alt="steam_profile_avatar">
                                 </li>
                                 <li class="gpy_navbar_padding">
                                     <b>SteamID:</b>
@@ -80,7 +83,10 @@
                                     <u>{{ user.rank }}</u>
                                 </li>
                                 <li class="gpy_navbar_padding">
-                                    <a class="btn btn-xs btn-primary" href="{{ user.profileurl }}" alt="steam_profile_avatar">Steam-Profile</a>
+                                    <a class="btn btn-xs btn-primary" href="{% url "profile" steam_id=user.steamid %}">G-Py Profile</a>
+                                </li>
+                                <li class="gpy_navbar_padding">
+                                    <a class="btn btn-xs btn-primary" href="{{ user.profileurl }}">Steam Profile</a>
                                 </li>
                                 <li class="gpy_navbar_padding">
                                     <a class="btn btn-danger btn-xs" href="{% url "logout_page" %}">Logout</a>
@@ -111,13 +117,8 @@
     <div align="center" class="row">
         <div class="col-md-12">
             <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">G-Py Index</h3>
-                </div>
-                <div class="panel-body">
-                    {% block content %}
-                    {% endblock %}
-                </div>
+                {% block content %}
+                {% endblock %}
             </div>
         </div><!-- /.col-sm-4 -->
     </div>
@@ -685,9 +686,16 @@
 {#    <script src="../../assets/js/docs.min.js"></script>#}
 {#    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->#}
 {#    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>#}
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
+{#<script src="https://code.jquery.com/jquery-3.2.1.min.js"#}
+{#        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="#}
+{#        crossorigin="anonymous"></script>#}
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script>
+    var jQuery = $;
+</script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>

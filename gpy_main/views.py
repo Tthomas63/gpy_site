@@ -71,7 +71,7 @@ class UlxSecretKeyPage(View):
                         ulx_data_store = UlxDataStore.objects.get(secret_key=site_ulx_secret_key)
                     except ObjectDoesNotExist:
                         ulx_data_store = UlxDataStore.objects.create(secret_key=site_ulx_secret_key)
-                    user_data.linked_store = ulx_data_store
+                    ulx_data_store.linked_store = ulx_data_store
                 except ObjectDoesNotExist:
                     print("No user found for steamid: {}".format(user_steamid))
         except ObjectDoesNotExist:

@@ -21,3 +21,4 @@ dj-database-url
 whitenoise
 django-organizations
 steam
+psycopg2

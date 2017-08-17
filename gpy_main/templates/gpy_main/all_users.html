@@ -1,0 +1,64 @@
+{% extends 'gpy_main/base.html' %}
+{% block content %}
+    {% load markdown_filter %}
+    <div class="panel-heading">
+        <div class="row">
+            <div align="left" class="col-sm-6">
+                <h3 class="panel-title">User Details</h3>
+            </div>
+            <div align="right" class="col-sm-6">
+                <h3 class="panel-title">User Profile Pic</h3>
+            </div>
+        </div>
+    </div>
+    <div align="center" class="panel-body">
+        {% if all_users %}
+            {% for current_user in all_users %}
+                <div class="jumbotron well-sm">
+                    <div style="border: solid black 2px; border-radius:5px;" class="row container bg-primary">
+                        <div class="col-md-3">
+                            <div class="label-warning">
+                                User:
+                            </div>
+                            <h4>{{ current_user.personaname }}</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-danger">
+                                Rank:
+                            </div>
+                            <h4><b>{{ current_user.rank }}</b></h4>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="label-success">
+                                SteamID:
+                            </div>
+                            <h4><u>{{ current_user.get_steam2_id }}</u></h4>
+                        </div>
+                        <div class="col-md-3">
+                            <img class="gpy_panel_avatar_border" src="{{ current_user.avatar }}">
+                        </div>
+                    </div>
+                    <div style="border: solid black 2px; border-radius:5px;" align="center" class="row label-danger">
+                        <div class="col-sm-4">
+                            <br>
+                            <a href="{% url "profile" steam_id=current_user.steamid%}" class="btn btn-warning">G-Py Profile</a>
+                        </div>
+                        <div class="col-sm-4">
+                            <p>{{ current_user.gpy_profile.motto|markdownify|safe }}</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <br>
+                            <a href="{{ current_user.profileurl }}" class="btn btn-success">Steam Profile</a>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="jumbotron">
+                <h2>All Users</h2>
+                <p>We could not find any users on the current site. Maybe try advertising?</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

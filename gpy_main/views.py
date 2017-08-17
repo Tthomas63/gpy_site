@@ -57,6 +57,13 @@ class LoginPage(View):
         return render(request, 'gpy_main/login_page.html')
 
 
+class AllUsersPage(View):
+    def get(self, request):
+        context = dict()
+        context['all_users'] = SteamUser.objects.all()
+        return render(request, 'gpy_main/all_users.html', context)
+
+
 def user_profile_view(request, steam_id):
     context = {}
     if steam_id[0:5] == "STEAM":
@@ -72,8 +79,6 @@ def user_profile_view(request, steam_id):
 
 def user_profile_edit_privacy(request, steam_id):
     viewed_user = SteamUser.objects.get(steamid=steam_id)
-    print("poo")
-    print(request.method)
     if request.method == "POST":
         viewed_user_profile = viewed_user.get_or_create_gpy_profile()
         form = GpyProfileForm(request.POST, instance=viewed_user_profile)

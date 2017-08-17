@@ -21,14 +21,6 @@ from gpy_main import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^gpy_main/', include('gpy_main.urls')),
+    url(r'^', include('gpy_main.urls')),
     url('', include('social_django.urls', namespace='social')),
-    url(r'^about$', views.AboutView.as_view(), name='about'),
-    url(r'^logout', login_required(views.LogoutView.as_view(), login_url='/'), name='logout'),
-    url(r'^login_page$', views.LoginPage.as_view(), name='login_page'),
-    url(r'^logout_page$', login_required(views.LogoutPage.as_view()), name='logout_page'),
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^profile/(?P<steam_id>\d+)$', views.user_profile_view, name='profile'),
-    url(r'^profile_edit/(?P<steam_id>\d+)$', views.user_profile_edit_privacy, name='profile_edit'),
-    # url(r'^profile/edit/(?P<steam_id>\d+)$', views.user_profile_edit_view, name='profile_edit'),
 ]

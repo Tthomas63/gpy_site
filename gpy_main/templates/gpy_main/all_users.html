@@ -22,19 +22,19 @@
                                     <div class="label-success">
                                         User:
                                     </div>
-                                    <h4>{{ current_user.personaname }}</h4>
+                                    <h4 class="alert-warning">{{ current_user.personaname }}</h4>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="label-success">
                                         Rank:
                                     </div>
-                                    <h4><b>{{ current_user.rank }}</b></h4>
+                                    <h4 class="alert-warning"><b>{{ current_user.rank }}</b></h4>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="label-success">
                                         SteamID:
                                     </div>
-                                    <h4><u>{{ current_user.get_steam2_id }}</u></h4>
+                                    <h4 class="alert-danger"><u>{{ current_user.get_steam2_id }}</u></h4>
                                 </div>
                                 <div class="col-md-3">
                                     <img class="gpy_panel_avatar_border" src="{{ current_user.avatar }}">

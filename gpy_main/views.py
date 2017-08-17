@@ -104,18 +104,18 @@ class UlxSecretKeyPage(View):
 
     @csrf_exempt
     def post(self, request):
-        csrf_token = django.middleware.csrf.get_token(request)
-        request.csrf_processing_done = False
-        reason = CsrfViewMiddleware().process_view(request, None, (), {})
-        if reason is not None:
-            print("In CSRF failed")
-            try:
-                csrf_token_as_ulx_key = UlxSecretKey.objects.get(value=csrf_token)
-                print("CSRF ULX TOKEN PASS")
-                pass
-            except ObjectDoesNotExist:
-                print("and we failed.")
-                return reason  # Failed the test, stop here.
+        # csrf_token = django.middleware.csrf.get_token(request)
+        # request.csrf_processing_done = False
+        # reason = CsrfViewMiddleware().process_view(request, None, (), {})
+        # if reason is not None:
+        #     print("In CSRF failed")
+        #     try:
+        #         csrf_token_as_ulx_key = UlxSecretKey.objects.get(value=csrf_token)
+        #         print("CSRF ULX TOKEN PASS")
+        #         pass
+        #     except ObjectDoesNotExist:
+        #         print("and we failed.")
+        #         return reason  # Failed the test, stop here.
         post_query_dict = request.POST
         post_dict = post_query_dict.dict() # Entire dictionary sent over by gmod
         ulx_secret_key = post_dict['ulx_secret_key'] # Grab key

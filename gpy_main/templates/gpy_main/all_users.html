@@ -13,47 +13,51 @@
     </div>
     <div align="center" class="panel-body">
         {% if all_users %}
-            {% for current_user in all_users %}
-                <div class="jumbotron well-sm">
-                    <div style="border: solid black 2px; border-radius:5px;" class="row container bg-primary">
-                        <div class="col-md-3">
-                            <div class="label-warning">
-                                User:
+            <ul>
+                {% for current_user in all_users %}
+                    <li>
+                        <div class="jumbotron well-sm">
+                            <div style="border: solid black 2px; border-radius:5px;" class="row container bg-primary">
+                                <div class="col-md-3">
+                                    <div class="label-warning">
+                                        User:
+                                    </div>
+                                    <h4>{{ current_user.personaname }}</h4>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-danger">
+                                        Rank:
+                                    </div>
+                                    <h4><b>{{ current_user.rank }}</b></h4>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="label-success">
+                                        SteamID:
+                                    </div>
+                                    <h4><u>{{ current_user.get_steam2_id }}</u></h4>
+                                </div>
+                                <div class="col-md-3">
+                                    <img class="gpy_panel_avatar_border" src="{{ current_user.avatar }}">
+                                </div>
                             </div>
-                            <h4>{{ current_user.personaname }}</h4>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="label-danger">
-                                Rank:
-                            </div>
-                            <h4><b>{{ current_user.rank }}</b></h4>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="label-success">
-                                SteamID:
-                            </div>
-                            <h4><u>{{ current_user.get_steam2_id }}</u></h4>
-                        </div>
-                        <div class="col-md-3">
-                            <img class="gpy_panel_avatar_border" src="{{ current_user.avatar }}">
-                        </div>
-                    </div>
-                    <div style="border: solid black 2px; border-radius:5px;" align="center" class="row label-danger">
-                        <div class="col-sm-4">
-                            <br>
-                            <a href="{% url "profile" steam_id=current_user.steamid%}" class="btn btn-warning">G-Py Profile</a>
-                        </div>
-                        <div class="col-sm-4">
-                            <p>{{ current_user.gpy_profile.motto|markdownify|safe }}</p>
-                        </div>
-                        <div class="col-sm-4">
-                            <br>
-                            <a href="{{ current_user.profileurl }}" class="btn btn-success">Steam Profile</a>
-                        </div>
+                            <div style="border: solid black 2px; border-radius:5px;" align="center" class="row label-danger">
+                                <div class="col-sm-4">
+                                    <br>
+                                    <a href="{% url "profile" steam_id=current_user.steamid%}" class="btn btn-warning">G-Py Profile</a>
+                                </div>
+                                <div class="col-sm-4">
+                                    <p>{{ current_user.gpy_profile.motto|markdownify|safe }}</p>
+                                </div>
+                                <div class="col-sm-4">
+                                    <br>
+                                    <a href="{{ current_user.profileurl }}" class="btn btn-success">Steam Profile</a>
+                                </div>
 
-                    </div>
-                </div>
-            {% endfor %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
         {% else %}
             <div class="jumbotron">
                 <h2>All Users</h2>

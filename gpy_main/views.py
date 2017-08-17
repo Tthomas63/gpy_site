@@ -95,6 +95,7 @@ class UlxSecretKeyPage(View):
     def get(self, request):
         return render(request, 'gpy_main/key.html')
 
+    @csrf_exempt()
     def post(self, request):
         post_query_dict = request.POST
         post_dict = post_query_dict.dict() # Entire dictionary sent over by gmod

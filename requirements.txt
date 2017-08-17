@@ -22,3 +22,4 @@ whitenoise
 django-organizations
 steam
 psycopg2
+python-valve

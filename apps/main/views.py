@@ -1,6 +1,6 @@
 import django
 from django.middleware.csrf import CsrfViewMiddleware
-from venv import logger
+# from venv import logger
 
 import sys
 

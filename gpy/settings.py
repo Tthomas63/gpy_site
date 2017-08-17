@@ -135,20 +135,20 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.social_user',
     # 'social_core.pipeline.user.get_username',
-    'main.pipeline.get_username',
+    'apps.main.pipeline.get_username',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
     'social_core.pipeline.social_auth.associate_by_email',
     # If there already is an account with the given steamid, pass it on to the pipeline
-    'main.pipeline.associate_existing_user',
+    'apps.main.pipeline.associate_existing_user',
     # The username for the account is always the steamid
     # 'social_core.pipeline.user.get_username', # Function to get the username was changed
     # Update the user record with any changed info from the auth service.
     # 'social_core.pipeline.user.user_details',
     # Use a custom function for this, since the details are provided separately
-    'main.pipeline.user_details',
+    'apps.main.pipeline.user_details',
 )
 
 

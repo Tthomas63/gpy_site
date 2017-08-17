@@ -84,13 +84,19 @@ def all_users_search(request):
 
 def user_profile_view(request, steam_id):
     context = {}
-    if steam_id[0:5] == "STEAM":
-        steam_id = steam2_to_steam64(steam_id)
+
+    # steam_id = SteamID(steam_id)
+    #
+    # steam_id_64 = steam_id.to_64()
+
+    # if steam_id[0:5] == "STEAM":
+    #     steam_id = steam2_to_steam64(steam_id)
+    # try:
+    #     viewed_user = SteamUser.objects.get(steamid=steam_id)
+    #     context['viewed_user'] = viewed_user
     try:
-        viewed_user = SteamUser.objects.get(steamid=steam_id)
-        context['viewed_user'] = viewed_user
+        context['viewed_user'] = SteamUser.objects.get(steamid=SteamID(steam_id).as_64())
     except ObjectDoesNotExist:
-        print("Could not find the requested user")
         context['error'] = "Could not find a user for the requested steam id."
     return render(request, 'gpy_main/profile.html', context)
 

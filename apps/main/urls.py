@@ -12,6 +12,6 @@ urlpatterns = [
     url(r'^login_page$', views.LoginPage.as_view(), name='login_page'),
     url(r'^logout_page$', login_required(views.LogoutPage.as_view()), name='logout_page'),
     url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^profile/(?P<steam_id>\d+)$', views.user_profile_view, name='profile'),
+    url(r'^profile/(?P<steam_id>.+)$', views.user_profile_view, name='profile'),
     url(r'^profile_edit/(?P<steam_id>\d+)$', views.user_profile_edit_privacy, name='profile_edit'),
 ]

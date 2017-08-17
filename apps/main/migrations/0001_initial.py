@@ -67,18 +67,18 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('rank', models.CharField(max_length=50)),
                 ('steam_id', models.CharField(max_length=20, unique=True)),
-                ('linked_store', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_data', to='main.UlxDataStore')),
+                ('linked_store', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_data', to='apps.main.UlxDataStore')),
             ],
         ),
         migrations.AddField(
             model_name='ulxdatastore',
             name='secret_key',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ulx_secret_key', to='main.UlxSecretKey'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='ulx_secret_key', to='apps.main.UlxSecretKey'),
         ),
         migrations.AddField(
             model_name='steamuser',
             name='gpy_profile',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='main.GpyProfile'),
+            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='apps.main.GpyProfile'),
         ),
         migrations.AddField(
             model_name='steamuser',
@@ -88,7 +88,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='steamuser',
             name='user_data',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='main.UlxUserData'),
+            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='apps.main.UlxUserData'),
         ),
         migrations.AddField(
             model_name='steamuser',

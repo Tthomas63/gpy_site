@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'social_django',
     'django_extensions',
     'main.apps.GpyMainConfig',
+    'forums.apps.ForumsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

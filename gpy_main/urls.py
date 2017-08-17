@@ -6,6 +6,7 @@ from . import views
 urlpatterns = [
     url(r'^key$', views.UlxSecretKeyPage.as_view(), name='key'),
     url(r'^all_users$', views.AllUsersPage.as_view(), name='all_users'),
+    url(r'^all_users_search/?$', views.all_users_search, name='all_users_search'),
     url(r'^about$', views.AboutView.as_view(), name='about'),
     url(r'^logout', login_required(views.LogoutView.as_view(), login_url='/'), name='logout'),
     url(r'^login_page$', views.LoginPage.as_view(), name='login_page'),

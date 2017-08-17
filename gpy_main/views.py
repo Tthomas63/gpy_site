@@ -66,6 +66,24 @@ class AllUsersPage(View):
         return render(request, 'gpy_main/all_users.html', context)
 
 
+def all_users_search(request):
+    context = {}
+    if request.method == 'GET':  # If the form is submitted
+        search_query = request.GET.get('search-text', None)
+        # Do whatever you need with the word the user looked for
+        # Your code
+        try:
+            list = SteamUser.objects.filter(personaname__contains=search_query)
+            context['searched_users'] = list
+        except ObjectDoesNotExist:
+            print("Could not find any users for search")
+            context['searched_users'] = 0
+        return render(request, 'gpy_main/all_users_search.html', context)
+    else:
+        context['searched_users'] = SteamUser.objects.all()
+        return render(request, 'gpy_main/all_users_search.html', context)
+
+
 def user_profile_view(request, steam_id):
     context = {}
     if steam_id[0:5] == "STEAM":

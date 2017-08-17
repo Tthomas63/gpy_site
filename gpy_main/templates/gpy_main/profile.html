@@ -17,41 +17,42 @@
                         <div class="col-md-4">
                             <h3>Steam Profile:</h3>
                             <a class="btn btn-lg btn-danger" href="{{ viewed_user.profileurl }}">View Steam Profile</a>
-                            {% if user.is_authenticated %}
-                                {% if user == viewed_user %}
-                                    <br>
-                                    <a href="{% url "profile_edit" steam_id=user.steamid %}"
-                                       class="btn btn-xs btn-danger">Edit
-                                        G-Py Profile</a>
-                                {% endif %}
-                            {% endif %}
                         </div>
                         <div align="right" class="col-md-4">
                             <img class="gpy_profile_avatar_border" src="{{ viewed_user.avatarmedium }}">
                         </div>
+                        {% if user.is_authenticated %}
+                            {% if user == viewed_user %}
+                                <div align="center" class="col-sm-12">
+                                    <h3>G-Py Edit Profile:</h3>
+                                    <a class="btn btn-xs btn-danger" href="{% url "profile_edit" steam_id=viewed_user.steamid %}">Edit Profile</a>
+                                </div>
+
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="panel panel-success">
                     <div align="left" class="panel-heading">
                         <h4>User profile</h4>
                     </div>
-                    <div class="panel-body well">
+                    <div class="panel-body">
                         <div class="row">
-                            <div class="col-lg-4">
-                                <div class="alert-danger">
-                                    <h2><u>User Motto/Signature</u></h2>
+                            <div class="">
+                                <div class="col-sm-12 bg-primary">
+                                    <div class="col-sm-6">
+                                            <h2><u>User Motto/Signature</u></h2>
+                                        {{ viewed_user.gpy_profile.motto|markdownify|safe }}
+                                    </div>
+                                    <div class="col-sm-6">
+                                            <h2><u>User Signature</u></h2>
+                                        {{ viewed_user.gpy_profile.signature|markdownify|safe }}
+                                    </div>
                                 </div>
-                                {{ viewed_user.gpy_profile.motto|markdownify|safe }}
-                                <div class="alert-warning">
-                                    <h2><u>User Signature</u></h2>
+                                <div class="bg-info col-lg-12">
+                                        <h2><u>User Bio</u></h2>
+                                    {{ viewed_user.gpy_profile.bio|markdownify|safe }}
                                 </div>
-                                {{ viewed_user.gpy_profile.signature|markdownify|safe }}
-                            </div>
-                            <div class="col-lg-8">
-                                <div class="alert-info">
-                                    <h2><u>User Bio</u></h2>
-                                </div>
-                                {{ viewed_user.gpy_profile.bio|markdownify|safe }}
                             </div>
                         </div>
                     </div>

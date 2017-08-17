@@ -16,17 +16,20 @@
                         <h3>Steam Profile:</h3>
                         <a class="btn btn-lg btn-danger" href="{{ viewed_user.profileurl }}">View Steam Profile</a>
                         <br>
-                        <h3>G-Py Profile:</h3>
-{#                        <a class="btn btn-xs btn-danger" href="{% url "profile" steam_id=viewed_user.steamid %}">View G-Py Profile</a>#}
                     </div>
                     <div align="right" class="col-md-4">
                         <img class="gpy_profile_avatar_border" src="{{ viewed_user.avatarmedium }}">
+                    </div>
+                    <div align="center" class="col-sm-12">
+                        <h3>G-Py Profile:</h3>
+                        <a class="btn btn-xs btn-danger" href="{% url "profile" steam_id=viewed_user.steamid %}">View G-Py Profile</a>
                     </div>
                 </div>
             </div>
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h4>Profile Edit Form</h4>
+                    <i>Note: Profiles support markdown!</i>
                 </div>
                 <div class="panel-body">
                     <hr />

@@ -33,3 +33,8 @@ body {
   margin-top:2%;
   margin-right:32%;
 }
+
+.gpy-border-radius-sm {
+  border: solid black 1px;
+  border-radius: 5px;
+}

@@ -21,3 +21,4 @@ whitenoise
 django-organizations
 steam
 psycopg2
+docopt

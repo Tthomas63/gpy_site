@@ -43,7 +43,7 @@
                             <div align="center" class="row bg-warning">
                                 <div class="col-sm-4">
                                     <br>
-                                    <a href="{% url "profile" steam_id=current_user.steamid%}" class="btn btn-success">G-Py Profile</a>
+                                    <a href="{% url "main:profile" steam_id=current_user.steamid%}" class="btn btn-success">G-Py Profile</a>
                                 </div>
                                 <div class="col-sm-4">
                                     <p>{{ current_user.gpy_profile.motto|markdownify|safe }}</p>

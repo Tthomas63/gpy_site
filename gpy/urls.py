@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('apps.main.urls')),
-    url(r'^remote_admin/', login_required(include('apps.remote_admin.urls'))),
+    url(r'^', include('apps.main.urls', namespace="main")),
+    url(r'^remote_admin/', include('apps.remote_admin.urls', namespace="remote_admin")),
     url('', include('social_django.urls', namespace='social')),
 ]

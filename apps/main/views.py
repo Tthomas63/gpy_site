@@ -35,12 +35,12 @@ logger4 = logging.getLogger('web')
 
 class IndexView(View):
     def get(self, request):
-        return render(request, 'gpy_main/index.html')
+        return render(request, 'main/index.html')
 
 
 class AboutView(View):
     def get(self, request):
-        return render(request, 'gpy_main/about.html')
+        return render(request, 'main/about.html')
 
 
 class LogoutView(View):
@@ -51,19 +51,19 @@ class LogoutView(View):
 
 class LogoutPage(View):
     def get(self, request):
-        return render(request, 'gpy_main/logout_page.html')
+        return render(request, 'main/logout_page.html')
 
 
 class LoginPage(View):
     def get(self, request):
-        return render(request, 'gpy_main/login_page.html')
+        return render(request, 'main/login_page.html')
 
 
 class AllUsersPage(View):
     def get(self, request):
         context = dict()
         context['all_users'] = SteamUser.objects.all()
-        return render(request, 'gpy_main/all_users.html', context)
+        return render(request, 'main/all_users.html', context)
 
 
 def all_users_search(request):
@@ -76,10 +76,10 @@ def all_users_search(request):
         except ObjectDoesNotExist:
             print("Could not find any users for search")
             context['searched_users'] = 0
-        return render(request, 'gpy_main/all_users_search.html', context)
+        return render(request, 'main/all_users_search.html', context)
     else:
         context['searched_users'] = SteamUser.objects.all()
-        return render(request, 'gpy_main/all_users_search.html', context)
+        return render(request, 'main/all_users_search.html', context)
 
 
 def user_profile_view(request, steam_id):
@@ -98,7 +98,7 @@ def user_profile_view(request, steam_id):
         context['viewed_user'] = SteamUser.objects.get(steamid=SteamID(steam_id).as_64())
     except ObjectDoesNotExist:
         context['error'] = "Could not find a user for the requested steam id."
-    return render(request, 'gpy_main/profile.html', context)
+    return render(request, 'main/profile.html', context)
 
 
 def user_profile_edit_privacy(request, steam_id):
@@ -116,13 +116,13 @@ def user_profile_edit_privacy(request, steam_id):
         form = GpyProfileForm()
         print('poop')
 
-    return render(request, 'gpy_main/profile_edit.html', {'form': form, 'viewed_user': viewed_user})
+    return render(request, 'main/profile_edit.html', {'form': form, 'viewed_user': viewed_user})
 
 
 # @csrf_exempt
 class UlxSecretKeyPage(View):
     def get(self, request):
-        return render(request, 'gpy_main/key.html')
+        return render(request, 'main/key.html')
 
     @csrf_exempt
     def post(self, request):

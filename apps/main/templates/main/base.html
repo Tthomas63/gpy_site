@@ -125,19 +125,8 @@
         <h1>G-Py Suite</h1>
         <p>Welcome to the G-Py Suite on heroku app test server.</p>
     </div>
-
-{#    <div class="page-header">#}
-{#        <h1>Page content</h1>#}
-{#    </div>#}
-    <div align="center" class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div><!-- /.col-sm-4 -->
-    </div>
-
+    {% block content %}
+    {% endblock %}
 </div> <!-- /container -->
 
 

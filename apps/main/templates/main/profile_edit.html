@@ -22,7 +22,7 @@
                     </div>
                     <div align="center" class="col-sm-12">
                         <h3>G-Py Profile:</h3>
-                        <a class="btn btn-xs btn-danger" href="{% url "profile" steam_id=viewed_user.steamid %}">View G-Py Profile</a>
+                        <a class="btn btn-xs btn-danger" href="{% url "main:profile" steam_id=viewed_user.steamid %}">View G-Py Profile</a>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     {# Display a form #}
 
                     {# Display a form #}
-                    <form action="{% url "profile_edit" steam_id=viewed_user.steamid %}" method="post" class="form">
+                    <form action="{% url "main:profile_edit" steam_id=viewed_user.steamid %}" method="post" class="form">
 {#                        {% csrf_token %}#}
 {#                        {% bootstrap_form form %}#}
 {#                        {% buttons %}#}

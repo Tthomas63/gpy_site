@@ -18,7 +18,26 @@
     <meta name="description" content="G-Py Suite">
     <meta name="author" content="Komerad">
     <link rel="icon" href="/static/gpy_logo.jpg">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style_remote.css">
+
+    <script
+            src="https://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <script>
+        var jQuery = $;
+    </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $("#search-text").on("keyup",function(e){
+            if(e. keyCode === 13){
+                var address = $('#send').attr('href');
+                window.location = address;
+            }
+
+            $('#send').attr("href",$(this).val());
+        })
+    </script>
 
     <title>G-Py Remote Admin</title>
 
@@ -71,8 +90,8 @@
         </div>
         <div id="navbar" class="navbar-right navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url "index" %}">Home</a></li>
-                <li><a href="{% url "main:about" %}">About</a></li>
+                <li class="active"><a href="{% url "remote_admin:remote_admin_index" %}">Remote Admin Index</a></li>
+                <li><a href="{% url "remote_admin:usage" %}">Usage</a></li>
                 <li><a href="{% url "main:all_users" %}">Users</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
@@ -91,6 +110,9 @@
                                 <li class="gpy_navbar_padding">
                                     <b>Rank:</b>
                                     <u>{{ user.rank }}</u>
+                                </li>
+                                <li class="gpy_navbar_padding">
+                                    <a class="btn btn-xs btn-danger" href="{% url "main:index" %}">Main Index</a>
                                 </li>
                                 <li class="gpy_navbar_padding">
                                     <a class="btn btn-xs btn-primary" href="{% url "main:profile" steam_id=user.steamid %}">G-Py Profile</a>
@@ -142,23 +164,6 @@
 {#<script gpy="https://code.jquery.com/jquery-3.2.1.min.js"#}
 {#        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="#}
 {#        crossorigin="anonymous"></script>#}
-<script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-<script>
-    var jQuery = $;
-</script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-    $("#search-text").on("keyup",function(e){
-        if(e. keyCode === 13){
-            var address = $('#send').attr('href');
-            window.location = address;
-        }
 
-        $('#send').attr("href",$(this).val());
-    })
-</script>
 </body>
 </html>

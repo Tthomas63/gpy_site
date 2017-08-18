@@ -1,7 +1,7 @@
 -- This module holds any type of remote execution functions (IE, 'dangerous')
 local CATEGORY_NAME = "G-Py ULX"
 
-function ulx.gpy_send_data( calling_ply, url, key )
+function ulx.gpy_sync_data( calling_ply, url, key )
 	ulx_players = {}
 	my_url = "https://gpy-gpy.herokuapp.com/key"
     my_fetched_headers = {}
@@ -38,8 +38,8 @@ function ulx.gpy_send_data( calling_ply, url, key )
 	        print( failed )
 	    end,
         my_fetched_headers )
-	ulx.fancyLogAdmin( calling_ply, true, "#A ran gpy_send_data command: #s", command )
+        ulx.fancyLogAdmin( calling_ply, true, "#A ran gpy_sync_data command: #s", command )
 end
-local gpy_send_data = ulx.command( CATEGORY_NAME, "ulx gpy_send_data", ulx.gpy_send_data, "!gpy_send_data", true, false, true )
-gpy_send_data:defaultAccess( ULib.ACCESS_SUPERADMIN )
-gpy_send_data:help( "Send data to a G-Py Site instance." )
+local gpy_sync_data = ulx.command( CATEGORY_NAME, "ulx gpy_sync_data", ulx.gpy_sync_data, "!gpy_sync_data", true, false, true )
+gpy_sync_data:defaultAccess( ULib.ACCESS_SUPERADMIN )
+gpy_sync_data:help( "Send data to a G-Py Site instance." )

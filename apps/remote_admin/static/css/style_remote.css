@@ -2,15 +2,15 @@ html,
 body {
     /*background-image: url("/static/dark-triangles.png");*/
     background: linear-gradient(180deg,
-    rgba(2,173,231,0.5),
+    black,
     rgba(184,93,92,0.82)),
     url(/static/dark-triangles.png)
 }
 
-.panel-default > .panel-heading-custom {
-    background: #B85D5C;
-    color: #fff;
-    background-image:none;
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #B85D5C;
+    color: white;
 }
 
 /*.panel-red-heading {*/

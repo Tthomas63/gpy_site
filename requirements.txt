@@ -10,7 +10,6 @@ urllib3==1.22
 djangorestframework
 markdown
 django-filter
-npm
 django-bootstrap3
 social-auth-core
 social-auth-app-django
@@ -22,4 +21,3 @@ whitenoise
 django-organizations
 steam
 psycopg2
-python-valve

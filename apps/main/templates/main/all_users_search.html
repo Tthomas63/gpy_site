@@ -37,22 +37,22 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <img src="{{ current_user.avatarmedium }}">
+                                                    <img class="gpy_panel_avatar_border" src="{{ current_user.avatarmedium }}">
                                                 </td>
                                                 <td>
-                                                    <h5>{{ current_user.personaname }}</h5>
+                                                    <h3 class="gpy_panel_info_style">{{ current_user.personaname }}</h3>
                                                 </td>
                                                 <td>
-                                                    <h5>{{ current_user.rank }}</h5>
+                                                    <h3 class="gpy_panel_info_style">{{ current_user.rank }}</h3>
                                                 </td>
                                                 <td>
-                                                    <a href="{% url "main:profile" steam_id=current_user.steamid %}" class="btn btn-danger btn-xs">G-Py Profile</a>
+                                                    <a href="{% url "main:profile" steam_id=current_user.steamid %}" class="btn btn-danger btn-xs gpy_panel_info_style">G-Py Profile</a>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ current_user.profileurl}}" class="btn btn-danger btn-xs">Steam Profile</a>
+                                                    <a href="{{ current_user.profileurl}}" class="btn btn-danger btn-xs gpy_panel_info_style">Steam Profile</a>
                                                 </td>
                                                 <td>
-                                                    <p>{{ current_user.gpy_profile.motto}}</p>
+                                                    <p class="gpy_panel_info_style">{{ current_user.gpy_profile.motto}}</p>
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -25,13 +25,16 @@ body {
     border-radius: 15px;
     background-color: #B85D5C;
 }
+.gpy_panel_info_style {
+    margin-top: 30px;
+}
 .gpy_panel_avatar_border {
     border: solid black 5px;
     background-color: #B85D5C;
     border-radius: 15px;
     padding: 2px;
     margin-top:4%;
-    margin-right:2%;
+    margin-leftt:2%;
 }
 .gpy_profile_avatar_border {
     border: solid black 5px;

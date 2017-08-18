@@ -12,6 +12,14 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 Credit to stefangeyer on github for SteamOpenID example!
 """
 
+"""
+Default G-Py Permissions
+
+Staff: Equivalent of mod
+Admin: Equivalent of Admin : Can ban, kick, etc
+SuperUser: Remote RCON access, all site commands etc.
+"""
+
 import os
 from social_core.pipeline.social_auth import social_user
 from social_core.pipeline.user import get_username
@@ -46,6 +54,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'apps.main',
     'apps.forums',
+    'apps.remote_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

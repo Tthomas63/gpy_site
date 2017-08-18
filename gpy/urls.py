@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('apps.main.urls')),
+    url(r'^remote_admin/', login_required(include('apps.remote_admin.urls'))),
     url('', include('social_django.urls', namespace='social')),
 ]

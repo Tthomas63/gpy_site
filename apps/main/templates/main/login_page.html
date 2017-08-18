@@ -11,10 +11,10 @@
                         <h3>Login:</h3>
                         {% if user.is_authenticated %}
                             <p>You are already logged in. Log out?</p>
-                            <a class="btn btn-danger" href="{% url "main:logout" %}">Logout</a>
+                            <a class="btn btn-danger" href="{% url "logout" %}">Logout</a>
                         {% else %}
                             <p>Log in with steam!</p>
-                            <a href="{% url "social:begin" "steam" %}?next={% url "index" %}">
+                            <a href="{% url "social:begin" "steam" %}?next={% url "main:index" %}">
                                 <img src="/static/sits_01.png" alt="Sign in with steam">
                             </a>
                         {% endif %}

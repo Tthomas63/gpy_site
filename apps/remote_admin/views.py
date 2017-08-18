@@ -11,25 +11,29 @@ from . import rcon
 
 class UsageView(View):
     def get(self, request):
-        response_forbidden_if_not_admin(request.user)
+        if not request.user.is_staff or not request.user.is_superuser or not request.user.is_authenticated:
+            return HttpResponseForbidden()
         return render(request, 'remote_admin/usage.html')
 
 
 class IndexView(View):
     def get(self, request):
         user = request.user
-        response_forbidden_if_not_admin(request.user)
+        if not user.is_staff or not user.is_superuser or not user.is_authenticated:
+            return HttpResponseForbidden()
         return render(request, 'remote_admin/index.html')
 
 
 class RconView(View):
     def get(self, request):
         user = request.user
-        response_forbidden_if_not_admin(user)
+        if not user.is_staff or not user.is_superuser or not user.is_authenticated:
+            return HttpResponseForbidden()
         return render(request, 'remote_admin/rcon.html')
 
     def post(self, request):
-        response_forbidden_if_not_admin(request.user)
+        if not request.user.is_staff or not request.user.is_superuser or not request.user.is_authenticated:
+            return HttpResponseForbidden()
         # if this is a POST request we need to process the form data
         if request.method == 'POST':
             # create a form instance and populate it with data from the request:
@@ -51,15 +55,12 @@ class RconView(View):
 
 class RconCmdView(View):
     def get(self, request, rcon_server_port, rcon_cmd):
-        response_forbidden_if_not_admin(request.user)
+        if not request.user.is_staff or not request.user.is_superuser or not request.user.is_authenticated:
+            return HttpResponseForbidden()
         context = {}
         context = run_rcon_cmd(rcon_server_port, rcon_cmd)
         return render(request, 'remote_admin/rcon_cmd.html', context)
 
-
-def response_forbidden_if_not_admin(user):
-    if not user.is_staff or not user.is_superuser or not user.is_authenticated:
-        return HttpResponseForbidden()
 
 def run_rcon_cmd(rcon_server_port, rcon_cmd):
     rcon_server_address = ("45.32.224.44", int(rcon_server_port))

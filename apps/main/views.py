@@ -95,7 +95,7 @@ def user_profile_view(request, steam_id):
     #     viewed_user = SteamUser.objects.get(steamid=steam_id)
     #     context['viewed_user'] = viewed_user
     try:
-        context['viewed_user'] = SteamUser.objects.get(steamid=SteamID(steam_id).as_64())
+        context['viewed_user'] = SteamUser.objects.get(steamid=SteamID(steam_id).as_64)
     except ObjectDoesNotExist:
         context['error'] = "Could not find a user for the requested steam id."
     return render(request, 'main/profile.html', context)

@@ -92,6 +92,11 @@
                                     <b>Rank:</b>
                                     <u>{{ user.rank }}</u>
                                 </li>
+                                {% if user.is_superuser %}
+                                    <li class="gpy_navbar_padding">
+                                        <a class="btn btn-xs btn-danger" href="{% url "remote_admin:remote_admin_index" %}">Remote Admin</a>
+                                    </li>
+                                {% endif %}
                                 <li class="gpy_navbar_padding">
                                     <a class="btn btn-xs btn-primary" href="{% url "main:profile" steam_id=user.steamid %}">G-Py Profile</a>
                                 </li>

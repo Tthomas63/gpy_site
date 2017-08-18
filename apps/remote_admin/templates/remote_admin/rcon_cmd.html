@@ -1,5 +1,4 @@
 {% extends 'remote_admin/base.html' %}
-
 {% block content %}
     <div align="center" class="row">
         <div class="col-md-12">
@@ -10,17 +9,13 @@
                 <div class="panel-body">
                     <div class="jumbotron">
                         <h2>Rcon Page</h2>
-                        <p>Welcome to the G-Py Remote Admin index. Hopefully you don't have to visit too often!</p>
-                        <p>To get started view one of the links below. Clicking the G-Py navbar brand will return you.</p>
-                        <p>To return here from a subpage, click home on the navbar.</p>
-                        <p>Don't mind the terrible form below.</p>
                         {% if rcon_stdout %}
                             <div class="panel panel-danger">
                                 <div class="panel-heading">
                                     <h3>RCON Successful Output:</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <p>{{ rcon_stdout }}</p>
+                                    {{ rcon_stdout|markdownify|safe }}
                                 </div>
                             </div>
                         {% elif error %}
@@ -47,20 +42,6 @@
             </div>
         </div><!-- /.col-sm-4 -->
     </div>
-{#    <script>#}
-{#        $(document).ready(function() {#}
-{#            $("#send_rcon_command").click(function() {#}
-{#                var url = "{% url 'remote_admin:rcon' %}"#}
-{#                $.post(url, {'rcon_command': $('#rcon_command').value})#}
-{#                .success(function() {#}
-{#                    location.reload(true)#}
-{#                })#}
-{#                .error(function() {#}
-{#                    alert("There was a problem sending the command. Please make sure you're connected to the Internet, if the problem persists please contact an admin.")#}
-{#                })#}
-{#            })#}
-{#        })#}
-    </script>
 {% endblock %}
 
 

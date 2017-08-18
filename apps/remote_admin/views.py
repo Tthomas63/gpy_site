@@ -8,6 +8,12 @@ from .forms import RconCmdForm
 from gpy import settings
 from . import rcon
 
+
+class UsageView(View):
+    def get(self, request):
+        return render(request, 'remote_admin/usage.html')
+
+
 class IndexView(View):
     def get(self, request):
         user = request.user

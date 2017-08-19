@@ -213,6 +213,6 @@ def start_rcon_session(rcon_server_port):
 
         while True:
             data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-            yield data
+            print(data)
     except AttributeError:
         print("Could not perform selected request.")

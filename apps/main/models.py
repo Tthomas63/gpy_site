@@ -102,7 +102,7 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
 
     def get_steam2_id(self):
         user_steam_id = SteamID(self.steamid)
-        return user_steam_id.as_steam2
+        return str(user_steam_id.as_steam2)
 
     def update_rank(self, group):
         if self.rank != group:
@@ -141,3 +141,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
             self.save()
             return self.gpy_profile
 
+    def is_admin(self):
+        if self.is_staff or self.is_superuser:
+            return True
+        else:
+            return False

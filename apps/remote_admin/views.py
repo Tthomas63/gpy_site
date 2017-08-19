@@ -209,7 +209,7 @@ def start_rcon_session(rcon_server_port):
                              socket.SOCK_DGRAM) # UDP
         #sock.connect((UDP_IP, UDP_PORT))
         sock.bind((UDP_IP, UDP_PORT))
-        sock.sendto("START".encode(), (UDP_IP, UDP_PORT))
+        sock.sendto("START".encode(), ("45.32.224.44", UDP_PORT))
         #sock.send("Hello".encode())
 
         while True:

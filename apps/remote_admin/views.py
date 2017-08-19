@@ -1,5 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponseForbidden, HttpResponseRedirect, StreamingHttpResponse
+from django.http import HttpResponseForbidden, HttpResponseRedirect, StreamingHttpResponse, HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -167,7 +167,8 @@ def view_logs(request):
     if not request.user.is_admin():
         return HttpResponseForbidden()
     else:
-        response = StreamingHttpResponse(start_rcon_session("27015"))
+        start_rcon_session("27015")
+        response = HttpResponse()
         return response
 
 

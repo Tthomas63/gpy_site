@@ -10,7 +10,7 @@ from .forms import RconCmdForm, BanUserForm
 from gpy import settings
 from . import rcon
 from .rcon import RCON
-
+from socket import *
 
 class UsageView(View):
     def get(self, request):
@@ -192,22 +192,47 @@ def run_rcon_cmd(rcon_server_port, rcon_cmd):
 
 
 def start_rcon_session(rcon_server_port):
-    import socket
-    try:
-        UDP_IP = "0.0.0.0"
-        UDP_PORT = 27015
-        sock = socket.socket(socket.AF_INET,  # Internet
-                             socket.SOCK_DGRAM) # UDP
-        #sock.connect((UDP_IP, UDP_PORT))
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        sock.bind((UDP_IP, int(UDP_PORT)))
-        sock.sendto("START".encode(), ("45.32.224.44", 27015))
-        #sock.send("Hello".encode())
-        while True:
-            data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-            #data, addr = sock.accept()
-            print(data)
-            yield data
-            # sock.listen()
-    except AttributeError:
-        print("Could not perform selected request.")
+    import time
+    pings = 1
+    # Send ping 10 times
+    while pings < 11:
+        # Create a UDP socket
+        clientSocket = socket(AF_INET, SOCK_DGRAM)
+        # Set a timeout value of 1 second
+        clientSocket.settimeout(60)
+        # Ping to server
+        message = 'test'
+        addr = ("45.32.224.44", 27015)
+        # Send ping
+        start = time.time()
+        clientSocket.sendto(message, addr)
+        # If data is received back from server, print
+        try:
+            data, server = clientSocket.recvfrom(1024)
+            end = time.time()
+            elapsed = end - start
+            print(data + " " + pings + " " + elapsed)
+
+            # If data is not received back from server, print it has timed out
+        except timeout:
+            print('REQUEST TIMED OUT')
+        pings = pings - 1
+    # import socket
+    # try:
+    #     UDP_IP = "0.0.0.0"
+    #     UDP_PORT = 27015
+    #     sock = socket.socket(socket.AF_INET,  # Internet
+    #                          socket.SOCK_DGRAM) # UDP
+    #     #sock.connect((UDP_IP, UDP_PORT))
+    #     sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    #     sock.bind((UDP_IP, int(UDP_PORT)))
+    #     sock.sendto("START".encode(), ("45.32.224.44", 27015))
+    #     #sock.send("Hello".encode())
+    #     while True:
+    #         data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+    #         #data, addr = sock.accept()
+    #         print(data)
+    #         yield data
+    #         # sock.listen()
+    # except AttributeError:
+    #     print("Could not perform selected request.")

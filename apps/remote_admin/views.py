@@ -203,13 +203,13 @@ def start_rcon_session(rcon_server_port):
     import socket
     try:
         UDP_IP = "45.32.224.44"
-        UDP_PORT = rcon_server_port
+        UDP_PORT = 27015
 
         sock = socket.socket(socket.AF_INET,  # Internet
                              socket.SOCK_STREAM)  # UDP
         sock.connect((UDP_IP, UDP_PORT))
         # sock.sendto("START", (UDP_IP, UDP_PORT))
-        sock.send("".encode())
+        sock.send("Hello".encode())
 
         while True:
             data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes

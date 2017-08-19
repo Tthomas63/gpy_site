@@ -167,7 +167,7 @@ def view_logs(request):
     if not request.user.is_admin():
         return HttpResponseForbidden()
     else:
-        response = StreamingHttpResponse(start_rcon_session(27015))
+        response = StreamingHttpResponse(start_rcon_session("27015"))
         return response
 
 
@@ -189,35 +189,24 @@ def run_rcon_cmd(rcon_server_port, rcon_cmd):
         local_context['error'] = e
     return local_context
 
-# def start_rcon_session(rcon_server_port):
-#     #
-#     # SERVER_ADDRESS = ("45.32.224.44", int(rcon_server_port))
-#     #
-#     # with RCON(SERVER_ADDRESS, settings.RCON_PASSWORD) as rcon:
-#     #     yield(rcon.__call__("echo"))
-#     #     yield(rcon._receive(30))
-#     #     yield("salad")
-#     #     yield("more testing")
-#     #
-#     # print("session ended.")
-#     import socket
-#     try:
-#         UDP_IP = "127.0.0.1"
-#         UDP_PORT = 27015
-#
-#         sock = socket.socket(socket.AF_INET,  # Internet
-#                              socket.SOCK_DGRAM) # UDP
-#         #sock.connect((UDP_IP, UDP_PORT))
-#         sock.bind((UDP_IP, UDP_PORT))
-#         new_sock = sock.accept()
-#         sock.sendto("START".encode(), new_sock)
-#         #sock.send("Hello".encode())
-#
-#         while True:
-#             data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-#             #data, addr = sock.accept()
-#             print(data)
-#             yield data
-#             # sock.listen()
-#     except AttributeError:
-#         print("Could not perform selected request.")
+
+def start_rcon_session(rcon_server_port):
+    import socket
+    try:
+        UDP_IP = "0.0.0.0"
+        UDP_PORT = 27015
+        sock = socket.socket(socket.AF_INET,  # Internet
+                             socket.SOCK_DGRAM) # UDP
+        #sock.connect((UDP_IP, UDP_PORT))
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        sock.bind((UDP_IP, int(UDP_PORT)))
+        sock.sendto("START".encode(), ("45.32.224.44", 27015))
+        #sock.send("Hello".encode())
+        while True:
+            data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+            #data, addr = sock.accept()
+            print(data)
+            yield data
+            # sock.listen()
+    except AttributeError:
+        print("Could not perform selected request.")

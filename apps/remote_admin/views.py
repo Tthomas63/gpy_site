@@ -201,15 +201,17 @@ def start_rcon_session(rcon_server_port):
     #
     # print("session ended.")
     import socket
+    try:
+        UDP_IP = "45.32.224.44"
+        UDP_PORT = rcon_server_port
 
-    UDP_IP = "45.32.224.44"
-    UDP_PORT = rcon_server_port
+        sock = socket.socket(socket.AF_INET,  # Internet
+                             socket.SOCK_DGRAM)  # UDP
+        sock.connect((UDP_IP, UDP_PORT))
+        sock.sendto("START".encode(), (UDP_IP, UDP_PORT))
 
-    sock = socket.socket(socket.AF_INET,  # Internet
-                         socket.SOCK_DGRAM)  # UDP
-    sock.bind((UDP_IP, UDP_PORT))
-    sock.sendto("START", (UDP_IP, UDP_PORT))
-
-    while True:
-        data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
-        yield data
+        while True:
+            data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes
+            yield data
+    except AttributeError:
+        print("Could not perform selected request.")

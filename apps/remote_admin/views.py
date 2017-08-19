@@ -201,7 +201,7 @@ def start_rcon_session(rcon_server_port):
         # Set a timeout value of 1 second
         clientSocket.settimeout(60)
         # Ping to server
-        message = 'test'
+        message = 'test'.encode()
         addr = ("45.32.224.44", 27015)
         # Send ping
         start = time.time()

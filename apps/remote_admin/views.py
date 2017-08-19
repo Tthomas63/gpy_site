@@ -206,7 +206,7 @@ def start_rcon_session(rcon_server_port):
         UDP_PORT = 27015
 
         sock = socket.socket(socket.AF_INET,  # Internet
-                             socket.SOCK_STREAM)  # UDP
+                             socket.SOCK_DGRAM) # UDP
         sock.connect((UDP_IP, UDP_PORT))
         # sock.sendto("START", (UDP_IP, UDP_PORT))
         sock.send("Hello".encode())

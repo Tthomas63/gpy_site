@@ -209,7 +209,7 @@ def start_rcon_session(rcon_server_port):
                              socket.SOCK_STREAM)  # UDP
         sock.connect((UDP_IP, UDP_PORT))
         # sock.sendto("START", (UDP_IP, UDP_PORT))
-        sock.send("")
+        sock.send("".encode())
 
         while True:
             data, addr = sock.recvfrom(1024)  # buffer size is 1024 bytes

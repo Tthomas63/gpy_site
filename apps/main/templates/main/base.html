@@ -53,7 +53,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{% url "index" %}">G-Py</a>
+            <a class="navbar-brand" href="{% url "main:index" %}">G-Py</a>
         </div>
         <div class="navbar-right">
 {#            <form class="navbar-form navbar-left">#}
@@ -62,7 +62,7 @@
 {#                </div>#}
 {#                <a href="{% url "all_users_search"%}" class="btn btn-default">Search</a>#}
 {#            </form>#}
-            <form class="navbar-form navbar-left" type="get" action="{% url "all_users_search"%}">
+            <form class="navbar-form navbar-left" type="get" action="{% url "main:all_users_search"%}">
                 <div class="form-group">
                     <input class="form-control" id="search-text" type="text" name="search-text"  placeholder="Search users..." >
                 </div>
@@ -71,9 +71,9 @@
         </div>
         <div id="navbar" class="navbar-right navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{% url "index" %}">Home</a></li>
-                <li><a href="{% url "about" %}">About</a></li>
-                <li><a href="{% url "all_users" %}">Users</a></li>
+                <li class="active"><a href="{% url "main:index" %}">Home</a></li>
+                <li><a href="{% url "main:about" %}">About</a></li>
+                <li><a href="{% url "main:all_users" %}">Users</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -92,17 +92,22 @@
                                     <b>Rank:</b>
                                     <u>{{ user.rank }}</u>
                                 </li>
+                                {% if user.is_superuser %}
+                                    <li class="gpy_navbar_padding">
+                                        <a class="btn btn-xs btn-danger" href="{% url "remote_admin:remote_admin_index" %}">Remote Admin</a>
+                                    </li>
+                                {% endif %}
                                 <li class="gpy_navbar_padding">
-                                    <a class="btn btn-xs btn-primary" href="{% url "profile" steam_id=user.steamid %}">G-Py Profile</a>
+                                    <a class="btn btn-xs btn-primary" href="{% url "main:profile" steam_id=user.steamid %}">G-Py Profile</a>
                                 </li>
                                 <li class="gpy_navbar_padding">
                                     <a class="btn btn-xs btn-primary" href="{{ user.profileurl }}">Steam Profile</a>
                                 </li>
                                 <li class="gpy_navbar_padding">
-                                    <a class="btn btn-danger btn-xs" href="{% url "logout_page" %}">Logout</a>
+                                    <a class="btn btn-danger btn-xs" href="{% url "main:logout_page" %}">Logout</a>
                                 </li>
                             {% else %}
-                                <li><a class="btn btn-xs btn-success" href="{% url "login_page" %}">Login</a></li>
+                                <li><a class="btn btn-xs btn-success" href="{% url "main:login_page" %}">Login</a></li>
                             {% endif %}
                         </div>
                     </ul>
@@ -120,19 +125,8 @@
         <h1>G-Py Suite</h1>
         <p>Welcome to the G-Py Suite on heroku app test server.</p>
     </div>
-
-{#    <div class="page-header">#}
-{#        <h1>Page content</h1>#}
-{#    </div>#}
-    <div align="center" class="row">
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div><!-- /.col-sm-4 -->
-    </div>
-
+    {% block content %}
+    {% endblock %}
 </div> <!-- /container -->
 
 

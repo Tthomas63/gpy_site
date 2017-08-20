@@ -15,8 +15,7 @@ Credit to stefangeyer on github for SteamOpenID example!
 """
 Default G-Py Permissions
 
-Staff: Equivalent of mod
-Admin: Equivalent of Admin : Can ban, kick, etc
+Staff: Equivalent of mod/admin
 SuperUser: Remote RCON access, all site commands etc.
 """
 
@@ -40,6 +39,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+RCON_SERVER_ADDRESS = ("45.32.224.44", 27015)
+RCON_PASSWORD = "Ray343486"
 
 ALLOWED_HOSTS = [
     'gpy-site.herokuapp.com',
@@ -192,12 +194,13 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '../staticfiles')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'static'),
+    os.path.join(PROJECT_ROOT, '../apps/main/static'),
+    os.path.join(PROJECT_ROOT, '../apps/remote_admin/static'),
 )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'

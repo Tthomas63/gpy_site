@@ -1,57 +1,38 @@
 {% extends 'main/base.html' %}
 {% load markdown_filter %}
 {% block content %}
-    <div align="left" class="panel-heading">
-        <h3 class="panel-title">{{ viewed_user.get_steam2_id }}</h3>
-    </div>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>{{ viewed_user.personaname }}</h2>
-                <div class="well well-sm">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h3>Rank:</h3>
-                            <h4>{{ viewed_user.rank }}</h4>
-                        </div>
-                        <div class="col-md-4">
-                            <h3>Steam Profile:</h3>
-                            <a class="btn btn-lg btn-danger" href="{{ viewed_user.profileurl }}">View Steam Profile</a>
-                        </div>
-                        <div align="right" class="col-md-4">
-                            <img class="gpy_profile_avatar_border" src="{{ viewed_user.avatarmedium }}">
-                        </div>
-                        {% if user.is_authenticated %}
-                            {% if user == viewed_user %}
-                                <div align="center" class="col-sm-12">
-                                    <h3>G-Py Edit Profile:</h3>
-                                    <a class="btn btn-xs btn-danger" href="{% url "main:profile_edit" steam_id=viewed_user.steamid %}">Edit Profile</a>
-                                </div>
-
-                            {% endif %}
-                        {% endif %}
-                    </div>
+    <div align="center" class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div align="left" class="panel-heading">
+                    <h3 class="panel-title">{{ viewed_user.get_steam2_id }}</h3>
                 </div>
-                <div class="panel panel-success">
-                    <div align="left" class="panel-heading">
-                        <h4>User profile</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="row">
-                            <div class="">
-                                <div class="col-sm-12 bg-primary">
-                                    <div class="col-sm-6">
-                                            <h2><u>User Motto/Signature</u></h2>
-                                        {{ viewed_user.gpy_profile.motto|markdownify|safe }}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>{{ viewed_user.personaname }}</h2>
+                            <div class="well well-sm">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h3>Rank:</h3>
+                                        <h4>{{ viewed_user.rank }}</h4>
                                     </div>
-                                    <div class="col-sm-6">
-                                            <h2><u>User Signature</u></h2>
-                                        {{ viewed_user.gpy_profile.signature|markdownify|safe }}
+                                    <div class="col-md-4">
+                                        <h3>Steam Profile:</h3>
+                                        <a class="btn btn-lg btn-danger" href="{{ viewed_user.profileurl }}">View Steam Profile</a>
                                     </div>
-                                </div>
-                                <div class="bg-info col-lg-12">
-                                        <h2><u>User Bio</u></h2>
-                                    {{ viewed_user.gpy_profile.bio|markdownify|safe }}
+                                    <div align="right" class="col-md-4">
+                                        <img class="gpy_profile_avatar_border" src="{{ viewed_user.avatarmedium }}">
+                                    </div>
+                                    {% if user.is_authenticated %}
+                                        {% if user == viewed_user %}
+                                            <div align="center" class="col-sm-12">
+                                                <h3>G-Py Edit Profile:</h3>
+                                                <a class="btn btn-xs btn-danger" href="{% url "main:profile_edit" steam_id=viewed_user.steamid %}">Edit Profile</a>
+                                            </div>
+
+                                        {% endif %}
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -60,4 +41,40 @@
             </div>
         </div>
     </div>
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            <h3>
+                User Profile
+            </h3>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-primary">
+                <div align="left" class="panel-heading">
+                    <h4>User Bio</h4>
+                </div>
+                <div align="center" class="panel-body">
+                    {{ viewed_user.gpy_profile.bio|markdownify|safe }}
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-danger">
+                <div align="left" class="panel-heading">
+                    <h4>User Signature</h4>
+                </div>
+                <div align="center" class="panel-body">
+                    {{ viewed_user.gpy_profile.signature|markdownify|safe }}
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-primary">
+                <div align="left" class="panel-heading">
+                    <h4>User Motto</h4>
+                </div>
+                <div align="center" class="panel-body">
+                    {{ viewed_user.gpy_profile.motto|markdownify|safe }}
+                </div>
+            </div>
+        </div>
 {% endblock %}

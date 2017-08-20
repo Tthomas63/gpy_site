@@ -22,3 +22,5 @@ django-organizations
 steam
 psycopg2
 docopt
+monotonic
+six

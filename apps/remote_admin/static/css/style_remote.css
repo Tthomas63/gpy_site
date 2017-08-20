@@ -2,7 +2,7 @@ html,
 body {
     /*background-image: url("/static/dark-triangles.png");*/
     background: linear-gradient(180deg,
-    black,
+    rgba(0,0,0,0.5),
     rgba(184,93,92,0.82)),
     url(/static/dark-triangles.png)
 }

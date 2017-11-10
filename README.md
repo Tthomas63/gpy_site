@@ -32,7 +32,7 @@ Next minor version would be: 1.1.0
 - [ ] Finish basic init of all apps, and polish to an acceptable standard
 - [ ] Re-write all code to reflect new-knowledge
 - [ ] Re-write main
-- [ ] Re-write pipeling
+- [ ] Re-write pipeline
 - [ ] Finish re-templating with Semantic-UI
 - [ ] Have a base template I am happy with
 

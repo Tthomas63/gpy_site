@@ -23,7 +23,7 @@ Beta will be `x.5.0` - `x.9.9`: This will be templating, styling, polishing, bug
 
 Subsequent versions will focus more on catering to instance hosts' needs, and making the utility more available along with advertising the project.
 
-(major-version).(minor-version)-(sub-version)<applicable sub-version tag for beta/alpha>
+(major-version).(minor-version)-(sub-version)<applicable sub-version tag for alpha/beta>
 IE Initial Release will be version: 1.0.0
 Next minor version would be: 1.1.0
 

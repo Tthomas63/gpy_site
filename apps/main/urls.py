@@ -16,11 +16,4 @@ urlpatterns = [
     url(r'^profile_edit/(?P<steam_id>\d+)$', views.user_profile_edit_privacy, name='profile_edit'),
     url(r'^announcement/(?P<pk>\d+)/$', views.AnnouncementDetailView.as_view(), name='announcement_detail'),
     url(r'^announcement/$', views.AnnouncementDetailView.as_view(), name='announcement_detail_no_pk'),
-    # Json URLS Below
-    url(r'^get_user_as_json/(?P<steam_id>\d+)$', json_views.get_user_from_steamid_as_json, name='get_user_as_json'),
-    url(r'^get_announcements_as_json/$', json_views.get_announcements, name='get_announcements'),
-    url(r'^get_all_announcements_and_related_types_as_json/$', json_views.get_all_announcements_and_related_types,
-        name='get_all_announcements_and_related_types'),
-    url(r'^get_related_announcements_as_json/$', json_views.get_related_announcements,
-        name='get_related_announcement_types'),
 ]

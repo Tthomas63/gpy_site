@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^', include('apps.main.urls', namespace="main")),
     url(r'^remote_admin/', include('apps.remote_admin.urls', namespace="remote_admin")),
     url(r'^forums/', include('apps.forums.urls', namespace="forums")),
+    url(r'^api/', include('apps.api.urls', namespace="api")),
     url('', include('social_django.urls', namespace='social')),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # url(r'^api/', include(router.urls)),

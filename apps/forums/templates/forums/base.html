@@ -29,31 +29,31 @@
     </script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        $("#search-text").on("keyup",function(e){
-            if(e. keyCode === 13){
+        $("#search-text").on("keyup", function (e) {
+            if (e.keyCode === 13) {
                 var address = $('#send').attr('href');
                 window.location = address;
             }
 
-            $('#send').attr("href",$(this).val());
+            $('#send').attr("href", $(this).val());
         })
     </script>
 
     <title>G-Py Remote Admin</title>
 
-{#    <!-- Bootstrap core CSS -->#}
-{#    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">#}
-{#    <!-- Bootstrap theme -->#}
-{#    <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">#}
-{#    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->#}
-{#    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">#}
-{##}
-{#    <!-- Custom styles for this template -->#}
-{#    <link href="theme.css" rel="stylesheet">#}
-{##}
-{#    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->#}
-{#    <!--[if lt IE 9]><script gpy="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->#}
-{#    <script gpy="../../assets/js/ie-emulation-modes-warning.js"></script>#}
+    {#    <!-- Bootstrap core CSS -->#}
+    {#    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">#}
+    {#    <!-- Bootstrap theme -->#}
+    {#    <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">#}
+    {#    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->#}
+    {#    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">#}
+    {##}
+    {#    <!-- Custom styles for this template -->#}
+    {#    <link href="theme.css" rel="stylesheet">#}
+    {##}
+    {#    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->#}
+    {#    <!--[if lt IE 9]><script gpy="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->#}
+    {#    <script gpy="../../assets/js/ie-emulation-modes-warning.js"></script>#}
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9gpy      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></scripgpy      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -66,7 +66,8 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -75,17 +76,18 @@
             <a class="navbar-brand" href="{% url "main:index" %}">G-Py</a>
         </div>
         <div class="navbar-right">
-{#            <form class="navbar-form navbar-left">#}
-{#                <div class="form-group">#}
-{#                    <input id="search-text" type="text" class="form-control" placeholder="Search users">#}
-{#                </div>#}
-{#                <a href="{% url "all_users_search"%}" class="btn btn-default">Search</a>#}
-{#            </form>#}
-            <form class="navbar-form navbar-left" type="get" action="{% url "main:all_users_search"%}">
+            {#            <form class="navbar-form navbar-left">#}
+            {#                <div class="form-group">#}
+            {#                    <input id="search-text" type="text" class="form-control" placeholder="Search users">#}
+            {#                </div>#}
+            {#                <a href="{% url "all_users_search"%}" class="btn btn-default">Search</a>#}
+            {#            </form>#}
+            <form class="navbar-form navbar-left" type="get" action="{% url "main:all_users_search" %}">
                 <div class="form-group">
-                    <input class="form-control" id="search-text" type="text" name="search-text"  placeholder="Search users..." >
+                    <input class="form-control" id="search-text" type="text" name="search-text"
+                           placeholder="Search users...">
                 </div>
-                <button id="search-submit" type="submit" >Submit</button>
+                <button id="search-submit" type="submit">Submit</button>
             </form>
         </div>
         <div id="navbar" class="navbar-right navbar-collapse collapse">
@@ -93,14 +95,16 @@
                 <li class="active"><a href="{% url "forums:index" %}">Forums Index</a></li>
                 <li><a href="{% url "main:all_users" %}">Users</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Profile <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-{#                        <li role="separator" class="divider"></li>#}
+                        {#                        <li role="separator" class="divider"></li>#}
                         <div align="center">
                             <li class="dropdown-header">Authentication</li>
                             {% if user.is_authenticated %}
                                 <li>
-                                    <img class="gpy_navbar_avatar_border" style="padding: 5px;" src="{{ user.avatarmedium }}" alt="steam_profile_avatar">
+                                    <img class="gpy_navbar_avatar_border" style="padding: 5px;"
+                                         src="{{ user.avatarmedium }}" alt="steam_profile_avatar">
                                 </li>
                                 <li class="gpy_navbar_padding">
                                     <b>SteamID:</b>
@@ -114,7 +118,8 @@
                                     <a class="btn btn-xs btn-danger" href="{% url "main:index" %}">Main Index</a>
                                 </li>
                                 <li class="gpy_navbar_padding">
-                                    <a class="btn btn-xs btn-primary" href="{% url "main:profile" steam_id=user.steamid %}">G-Py Profile</a>
+                                    <a class="btn btn-xs btn-primary"
+                                       href="{% url "main:profile" steam_id=user.steamid %}">G-Py Profile</a>
                                 </li>
                                 <li class="gpy_navbar_padding">
                                     <a class="btn btn-xs btn-primary" href="{{ user.profileurl }}">Steam Profile</a>
@@ -142,9 +147,9 @@
         <p>Welcome to the Forums area. Under construction</p>
     </div>
 
-{#    <div class="page-header">#}
-{#        <h1>Page content</h1>#}
-{#    </div>#}
+    {#    <div class="page-header">#}
+    {#        <h1>Page content</h1>#}
+    {#    </div>#}
     {% block content %}
     {% endblock %}
 

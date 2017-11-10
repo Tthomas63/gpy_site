@@ -38,7 +38,6 @@ def user_details(user, details, strategy, *args, **kwargs):
                     if not current_value or name not in protected:
                         changed |= current_value != value
                         setattr(user, name, value)
-
         if changed:
             strategy.storage.user.changed(user)
 

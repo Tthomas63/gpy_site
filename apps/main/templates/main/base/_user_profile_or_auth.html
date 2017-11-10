@@ -1,0 +1,6 @@
+{% if request.user.is_authenticated %}
+    <a class="item" href="{% url "main:profile" steam_id=request.user.steamid %}">Profile</a>
+    <a class="item" href="{% url "main:logout_page" %}">Sign-out</a>
+{% else %}
+    <a class="item" href="{% url "main:login_page" %}">Login</a>
+{% endif %}

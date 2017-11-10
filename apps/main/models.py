@@ -8,9 +8,15 @@ from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from steam import SteamID
+
+
+def announcement_image_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'announcement/{0}/{1}'.format(instance.pk, filename)
 
 
 class UlxSecretKey(models.Model):
@@ -146,3 +152,36 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
             return True
         else:
             return False
+
+
+class AnnouncementType(models.Model):
+    COLOR_CHOICES = (
+        ('red', 'Red'),
+        ('orange', 'Orange'),
+        ('yellow', 'Yellow'),
+        ('olive', 'Olive'),
+        ('green', 'Green'),
+        ('teal', 'Teal'),
+        ('blue', 'Blue'),
+        ('violet', 'Violet'),
+        ('purple', 'Purple'),
+        ('pink', 'Pink'),
+        ('brown', 'Brown'),
+        ('grey', 'Grey'),
+        ('black', 'Black'),
+    )
+    name = models.CharField(max_length=20)
+    color = models.CharField(max_length=8, choices=COLOR_CHOICES, default='red')
+
+
+class Announcement(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=100)
+    announcement_type = models.ForeignKey(AnnouncementType, null=True, blank=True, related_name='announcements')
+    message = models.CharField(max_length=1200)
+    owner = models.ForeignKey(SteamUser, null=True, blank=True, related_name='announcements')
+    image = models.ImageField(upload_to=announcement_image_path, default="")
+    posted = models.DateField(auto_now_add=True)
+
+    def get_view_url(self):
+        return reverse('main:announcement_detail', kwargs={'pk': self.pk})

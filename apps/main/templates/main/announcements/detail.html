@@ -1,0 +1,27 @@
+{% extends "main/base.html" %}
+{% block content_header %}
+    <h1 class="ui massive header">
+        <strong>Title:</strong>
+        <div class="ui green label">{{ announcement.title }}</div>
+    </h1>
+    <div class="ui horizontal list">
+        <div class="ui item">
+            <i class="newspaper icon"></i>
+            <div class="content">
+                <div class="header">Type:</div>
+                {{ announcement.announcement_type.name }}
+            </div>
+        </div>
+        <div class="ui item">
+            <i class="help icon"></i>
+            <div class="content">
+                <div class="header">Owner:</div>
+                {{ announcement.owner }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block content %}
+    {{ announcement.message }}
+{% endblock %}

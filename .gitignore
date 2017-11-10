@@ -1,0 +1,17 @@
+db.sqlite3
+*.pyc
+.env
+media/
+static/admin/
+static/css/
+static/dark-triangles.png
+static/django_extensions/
+static/fonts/
+static/gpy_logo.jpg
+static/header_image.jpg
+static/header_image2.jpg
+static/js/
+static/pattern.jpg
+static/semantic/
+static/sits_01.png
+static/skyscraper.png

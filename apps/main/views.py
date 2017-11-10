@@ -17,15 +17,17 @@ from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DetailView
+from django.views.generic.base import ContextMixin
 from steam import SteamID
 from steam.steamid import make_steam64
 
 from django.conf import settings
 
+from .mixins import AnnouncementMixin
 from .utils import steam2_to_steam64
 from .forms import GpyProfileForm
-from .models import UlxSecretKey, SteamUser, UlxDataStore, UlxUserData, GpyProfile
+from .models import UlxSecretKey, SteamUser, UlxDataStore, UlxUserData, GpyProfile, Announcement
 import logging
 logger2 = logging.getLogger('django')
 logger = logging.getLogger('gpy')
@@ -33,9 +35,30 @@ logger3 = logging.getLogger('main')
 logger4 = logging.getLogger('web')
 # Create your views here.
 
-class IndexView(View):
-    def get(self, request):
-        return render(request, 'main/index.html')
+
+class AnnouncementDetailView(DetailView):
+    model = Announcement
+    template_name = 'main/announcements/detail.html'
+
+
+class IndexView(View, ContextMixin):
+    template_name = 'main/index.html'
+
+    def get(self, request, *args, **kwargs):
+        context = dict()
+        context = self.get_context_data(**kwargs)
+        return render(request, self.template_name, context)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        annc = Announcement.objects.all()
+        # for an in annc:
+        #     print(an)
+        #     print(an.announcement_type)
+        #     print(an.announcement_type.color)
+        # print("My announcements: ".format(annc))
+        context['announcements'] = annc
+        return context
 
 
 class AboutView(View):
@@ -46,7 +69,7 @@ class AboutView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect('index')
+        return redirect('main:index')
 
 
 class LogoutPage(View):
@@ -99,6 +122,17 @@ def user_profile_view(request, steam_id):
     except ObjectDoesNotExist:
         context['error'] = "Could not find a user for the requested steam id."
     return render(request, 'main/profile.html', context)
+
+
+class UserProfileView(View, ContextMixin):
+    model = SteamUser
+    template_name = 'main/profile.html'
+
+    def get(self, request, steam_id, *args, **kwargs):
+        response = super().get()
+        context = super().get_context_data()
+        context['viewed_user'] = self.model.objects.get(steamid=SteamID(steam_id).as_64)
+        context['my_little_message']
 
 
 def user_profile_edit_privacy(request, steam_id):

@@ -24,6 +24,10 @@ from social_core.pipeline.social_auth import social_user
 from social_core.pipeline.user import get_username
 import dj_database_url
 
+# ============================================================================
+# Main Django Settings
+# ============================================================================
+
 db_from_env = dj_database_url.config()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,9 +44,6 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-RCON_SERVER_ADDRESS = ("45.32.224.44", 27015)
-RCON_PASSWORD = "Ray343486"
-
 ALLOWED_HOSTS = [
     'gpy-site.herokuapp.com',
     'localhost',
@@ -50,13 +51,14 @@ ALLOWED_HOSTS = [
 
 # Application definition
 
-INSTALLED_APPS = [
-    'bootstrap3',
-    'social_django',
-    'django_extensions',
+GPY_APPS = [
     'apps.main',
     'apps.forums',
     'apps.remote_admin',
+    'apps.servers',
+]
+
+DJANGO_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -64,6 +66,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+INSTALLED_APPS = [
+    'bootstrap3',
+    'social_django',
+    'django_extensions',
+    'rest_framework',
+]
+
+INSTALLED_APPS += DJANGO_APPS
+INSTALLED_APPS += GPY_APPS
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
@@ -91,6 +103,7 @@ TEMPLATES = [
                 'social_django.context_processors.backends',
                 'social_django.context_processors.login_redirect',
                 'django.template.context_processors.csrf',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -98,6 +111,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gpy.wsgi.application'
 
+# ============================================================================
+# Databases
+# ============================================================================
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -110,6 +126,10 @@ DATABASES = {
 }
 
 DATABASES['default'].update(db_from_env)
+
+# ============================================================================
+# Authentication
+# ============================================================================
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -141,6 +161,10 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+# ============================================================================
+# Social Auth
+# ============================================================================
+
 SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
@@ -171,10 +195,18 @@ SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 # SOCIAL_AUTH_STEAM_USER_FIELDS = ('username', 'email', 'steamid', 'date_joined')
 
+# ============================================================================
+# Custom Groups TODO: Make useful
+# ============================================================================
+
 ULX_ADMIN_RANKS = ['admin']
 ULX_SUPER_RANKS = ['developer', 'owner', 'co-owner', 'superadmin']
 
 # CSRF_TRUSTED_ORIGINS = []
+
+# ============================================================================
+# Internationalization
+# ============================================================================
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -189,21 +221,57 @@ USE_L10N = True
 
 USE_TZ = True
 
+# ============================================================================
+# Static Files + Project Root
+# ============================================================================
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# We have the folder gpy that houses all central settings etc. We want the outer folder of this (gpy_site)
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '../staticfiles')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
 STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, '../apps/main/static'),
-    os.path.join(PROJECT_ROOT, '../apps/remote_admin/static'),
+    os.path.join(PROJECT_ROOT, 'apps/main/static/'),
+    os.path.join(PROJECT_ROOT, 'apps/remote_admin/static/'),
 )
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# ============================================================================
+# Static Files + Project Root
+# ============================================================================
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media/')
+MEDIA_URL = '/media/'
+
+# ============================================================================
+# Django Rest Framework
+# ============================================================================
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
+# ============================================================================
+# RCON TODO: Pull out into objects
+# ============================================================================
+
+RCON_SERVER_ADDRESS = ("45.32.224.44", 27015)
+RCON_PASSWORD = os.environ.get('RCON_PASSWORD')
+
+# ============================================================================
+# Logging
+# ============================================================================
 
 LOGGING = {
     'version': 1,

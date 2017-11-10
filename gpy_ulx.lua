@@ -3,8 +3,8 @@ local CATEGORY_NAME = "G-Py ULX"
 
 function ulx.gpy_sync_data(calling_ply, url, key)
     ulx_players = {}
-    my_key = "3f440c72-cfcc-480c-981a-d1e474ad63e6"
-    my_url = "https://gpy-gpy.herokuapp.com/key"
+    my_key = ""
+    my_url = ""
     my_fetched_headers = {}
     -- Http fetch to grab headers ---------------------
     http.Fetch(my_url,

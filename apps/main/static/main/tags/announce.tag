@@ -11,8 +11,7 @@
                 <br>
                 <div class="ui divider"></div>
                 <div>
-                    <img style="height: 10%" class="ui tiny center aligned circular image" src={'media/'+
-                         annonc.fields.image}>
+                    <img style="height: 10%" class="ui tiny center aligned circular image" src={'media/'+ {annonc.fields.image}>
                 </div>
                 <br>
                 <div class="ui divider"></div>

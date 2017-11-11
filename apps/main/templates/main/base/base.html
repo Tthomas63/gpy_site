@@ -8,11 +8,11 @@
     <meta content="Semantic-UI, Theme, Design, Template" name="keywords"/>
     <meta content="PPType" name="author"/>
     <!-- Fav icon -->
-    <link rel="icon" href="/static/gpy_logo.jpg">
+    <link rel="icon" href="/static/main/gpy_logo.jpg">
 
     <!-- Style sheets / UI frameworks -->
-    <link rel="stylesheet" href="/static/semantic/semantic.css">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/main/semantic/semantic.css">
+    <link rel="stylesheet" href="/static/main/css/style.css">
     <!-- JS Libraries -->
     <script
             src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -20,15 +20,14 @@
             crossorigin="anonymous">
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/riot/3.7.3/riot+compiler.min.js"></script>
-    <script src="/static/semantic/semantic.js"></script>
+    <script src="/static/main/semantic/semantic.js"></script>
     <!-- My Riot tags -->
-    <script type="riot/tag" src="/static/tags/all-user-search.tag"></script>
-    <script type="riot/tag" src="/static/tags/announce.tag"></script>
+    <script type="riot/tag" src="/static/main/tags/all-user-search.tag"></script>
+    <script type="riot/tag" src="/static/main/tags/announce.tag"></script>
 
     <script>
         var jQuery = $;
-        announce_with_types_api_url = "{% url "main:get_all_announcements_and_related_types" %}";
-        {{ var }}
+        announce_with_types_api_url = "{% url "api:get_all_announcements_and_related_types" %}";
         announcements_detail_view_url = "{% url "main:announcement_detail_no_pk" %}";
         riot.mount('all-user-search');
         riot.mount('announce');

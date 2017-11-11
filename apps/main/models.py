@@ -20,26 +20,33 @@ def announcement_image_path(instance, filename):
 
 
 class UlxSecretKey(models.Model):
-    value = models.CharField(default=uuid.uuid4(), max_length=200)
+    value = models.CharField(default="", max_length=200)
 
     def __str__(self):
-        return self.value
+        return "UlxKey:{0}-{1}".format(self.pk, self.value)
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if not self.value or self.value == "":
+            self.value = uuid.uuid4()
+            self.save()
+        super(UlxSecretKey, self).save()
 
 
-class UlxDataStore(models.Model):
-    secret_key = models.ForeignKey(UlxSecretKey, related_name='ulx_secret_key')
+# class UlxDataStore(models.Model):
+#     secret_key = models.ForeignKey(UlxSecretKey, related_name='ulx_secret_key')
 
 
-class GpyProfile(models.Model):
+class UserProfile(models.Model):
     bio = models.CharField(max_length=600, default="")
     signature = models.CharField(max_length=200, default="")
     motto = models.CharField(max_length=100, default="")
 
 
-class UlxUserData(models.Model):
-    linked_store = models.ForeignKey(UlxDataStore, related_name="user_data")
-    rank = models.CharField(max_length=50)
-    steam_id = models.CharField(max_length=20, unique=True)
+# class UlxUserData(models.Model):
+#     linked_store = models.ForeignKey(UlxDataStore, related_name="user_data")
+#     rank = models.CharField(max_length=50)
+#     steam_id = models.CharField(max_length=20, unique=True)
 
 
 class SteamUserManager(BaseUserManager):
@@ -89,8 +96,8 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
     avatarmedium = models.CharField(max_length=255)
     avatarfull = models.CharField(max_length=255)
 
-    user_data = models.OneToOneField(UlxUserData, on_delete=models.CASCADE, null=True)
-    gpy_profile = models.OneToOneField(GpyProfile, on_delete=models.CASCADE, null=True)
+    # user_data = models.OneToOneField(UlxUserData, on_delete=models.CASCADE, null=True)
+    gpy_profile = models.OneToOneField(UserProfile, on_delete=models.CASCADE, null=True)
 
     # Add the other fields that can be retrieved from the Web-API if required
 
@@ -110,42 +117,36 @@ class SteamUser(AbstractBaseUser, PermissionsMixin):
         user_steam_id = SteamID(self.steamid)
         return str(user_steam_id.as_steam2)
 
-    def update_rank(self, group):
-        if self.rank != group:
-            self.rank = group
-            self.save()
-            if group in settings.ULX_ADMIN_RANKS or group in settings.ULX_SUPER_RANKS:
-                print("Making user {} staff/admin.".format(self.personaname))
+    def update_rank(self, new_rank):
+        if self.rank != new_rank:
+            self.rank = new_rank
+            if new_rank in settings.ULX_ADMIN_RANKS or new_rank in settings.ULX_SUPER_RANKS:
                 self.is_staff = True
                 self.is_admin = True
-                self.save()
-                if group in settings.ULX_SUPER_RANKS:
-                    print("Making user {} superadmin.".format(self.personaname))
+                if new_rank in settings.ULX_SUPER_RANKS:
                     self.is_superuser = True
-                    self.save()
-        else:
-            print("User {}'s rank is staying the same".format(self.personaname))
-
-    def get_or_create_userdata(self):
-        try:
-            temp_user_data = self.user_data
-            return temp_user_data
-        except ObjectDoesNotExist:
-            temp_user_data = UlxUserData.objects.create(rank=self.rank,steam_id=self.steamid)
-            self.user_data = temp_user_data
             self.save()
-            return self.user_data
 
-    def get_or_create_gpy_profile(self):
-        if hasattr(self, 'gpy_profile') and self.gpy_profile != None:
-            return getattr(self, 'gpy_profile')
-        else:
-            new_profile = GpyProfile.objects.create()
-            new_profile.save()
-            self.gpy_profile = new_profile
-            self.gpy_profile.save()
-            self.save()
-            return self.gpy_profile
+    # def get_or_create_userdata(self):
+    #     try:
+    #         temp_user_data = self.user_data
+    #         return temp_user_data
+    #     except ObjectDoesNotExist:
+    #         temp_user_data = UlxUserData.objects.create(rank=self.rank,steam_id=self.steamid)
+    #         self.user_data = temp_user_data
+    #         self.save()
+    #         return self.user_data
+    #
+    # def get_or_create_gpy_profile(self):
+    #     if hasattr(self, 'gpy_profile') and self.gpy_profile != None:
+    #         return getattr(self, 'gpy_profile')
+    #     else:
+    #         new_profile = GpyProfile.objects.create()
+    #         new_profile.save()
+    #         self.gpy_profile = new_profile
+    #         self.gpy_profile.save()
+    #         self.save()
+    #         return self.gpy_profile
 
     def is_admin(self):
         if self.is_staff or self.is_superuser:

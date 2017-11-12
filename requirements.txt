@@ -40,4 +40,10 @@ steam==0.8.20
 urllib3==1.22
 vdf==2.3
 whitenoise==3.3.0
-Pillow==4.3.0
+pillow==4.3.0
+# celery
+celery==3.1.23
+django-celery
+flower
+django-celery-results
+django-celery-beat

@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'social_django',
     'django_extensions',
     'rest_framework',
+    'djcelery',
 ]
 
 INSTALLED_APPS += DJANGO_APPS
@@ -115,10 +116,20 @@ WSGI_APPLICATION = 'gpy.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432
     }
 }
 
@@ -257,6 +268,16 @@ REST_FRAMEWORK = {
     ]
 }
 
+# ============================================================================
+# Celery
+# ============================================================================
+
+import djcelery
+
+djcelery.setup_loader()
+
+BROKER_URL = os.environ.get("RABBITMQ_BIGWIG_URL", 'amqp://admin:admin@rabbitmq:5672/gpy')
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
 # ============================================================================
 # Logging

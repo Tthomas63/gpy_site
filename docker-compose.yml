@@ -1,12 +1,15 @@
 version: '3'
-
+volumes:
+  dbvolume:
 services:
-  db:
-    image: postgres
-    container_name: gpy_db
   web:
     build: .
-    command: python3 manage.py runserver 0.0.0.0:80
+    container_name: django
+    env_file: .env
+    command: /usr/local/bin/gunicorn gpy.wsgi:application -w 2 -k gevent -b :8000 --reload
+    environment:
+      - "DJANGO_SETTINGS_MODULE=gpy.settings"
+    env_file: .env
     volumes:
       - .:/code
     ports:
@@ -14,5 +17,47 @@ services:
       - "80:80"
     depends_on:
       - db
-    container_name: gpy_django
+      - celery
+  db:
+    image: postgres
+    container_name: db
     env_file: .env
+    environment:
+      - "PGDATA=/var/lib/postgresql/data/pgdata"
+    ports:
+      - 5432:5432
+    volumes:
+      - dbvolume:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbit
+    env_file: .env
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  celery:
+    container_name: celery
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile.celery
+    depends_on:
+      - rabbitmq
+      - db
+    environment:
+      - "DJANGO_SETTINGS_MODULE=gpy.settings"
+    env_file: .env
+    volumes:
+      - .:/code
+    command: celery -A gpy.gpy_worker worker --loglevel=debug
+  flower:
+    container_name: flower
+    env_file: .env
+    build:
+      context: .
+      dockerfile: Dockerfile.flower
+    ports:
+      - "15555:5555"
+    depends_on:
+      - celery
+      - rabbitmq

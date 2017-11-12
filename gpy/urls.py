@@ -22,13 +22,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('apps.main.urls', namespace="main")),
-    url(r'^remote_admin/', include('apps.remote_admin.urls', namespace="remote_admin")),
-    url(r'^forums/', include('apps.forums.urls', namespace="forums")),
-    url(r'^api/', include('apps.api.urls', namespace="api")),
-    url('', include('social_django.urls', namespace='social')),
-    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # url(r'^api/', include(router.urls)),
+    url(r'^', include('apps.core.urls', namespace="core")),
+    url(r'^user/', include('apps.user.urls', namespace="user")),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

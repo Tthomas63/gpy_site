@@ -20,8 +20,8 @@ SuperUser: Remote RCON access, all site commands etc.
 """
 
 import os
-from social_core.pipeline.social_auth import social_user
-from social_core.pipeline.user import get_username
+# from social_core.pipeline.social_auth import social_user
+# from social_core.pipeline.user import get_username
 import dj_database_url
 
 # ============================================================================
@@ -52,10 +52,8 @@ ALLOWED_HOSTS = [
 # Application definition
 
 GPY_APPS = [
-    'apps.main',
-    'apps.forums',
-    'apps.remote_admin',
-    'apps.servers',
+    'apps.core',
+    'apps.user',
 ]
 
 DJANGO_APPS = [
@@ -68,7 +66,6 @@ DJANGO_APPS = [
 ]
 
 INSTALLED_APPS = [
-    'bootstrap3',
     'social_django',
     'django_extensions',
     'rest_framework',
@@ -150,12 +147,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTHENTICATION_BACKENDS = (
-    # 'social_core.backends.open_id.OpenIdAuth',
-    # 'social_core.backends.google.GoogleOpenId',
-    # 'social_core.backends.google.GoogleOAuth2',
-    # 'social_core.backends.google.GoogleOAuth',
-    # 'social_core.backends.twitter.TwitterOAuth',
-    # 'social_core.backends.yahoo.YahooOpenId',
     'social_core.backends.open_id.OpenIdAuth',
     'social_core.backends.steam.SteamOpenId',
     'django.contrib.auth.backends.ModelBackend',
@@ -170,27 +161,31 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.social_user',
     # 'social_core.pipeline.user.get_username',
-    'apps.main.pipeline.get_username',
+    'apps.user.pipeline.get_username',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
     'social_core.pipeline.social_auth.associate_by_email',
     # If there already is an account with the given steamid, pass it on to the pipeline
-    'apps.main.pipeline.associate_existing_user',
+    'apps.user.pipeline.associate_existing_user',
     # The username for the account is always the steamid
     # 'social_core.pipeline.user.get_username', # Function to get the username was changed
     # Update the user record with any changed info from the auth service.
     # 'social_core.pipeline.user.user_details',
     # Use a custom function for this, since the details are provided separately
-    'apps.main.pipeline.user_details',
+    'apps.user.pipeline.user_details',
 )
 
+# User model settings
 
-AUTH_USER_MODEL = 'main.SteamUser'
-SOCIAL_AUTH_USER_MODEL = 'main.SteamUser'
+AUTH_USER_MODEL = 'user.SteamUser'
+SOCIAL_AUTH_USER_MODEL = 'user.SteamUser'
+
 # Set the below line in .env
 SOCIAL_AUTH_STEAM_API_KEY = os.environ.get('API_KEY')
+
+# Social auth extra details
 SOCIAL_AUTH_STEAM_EXTRA_DATA = ['player']
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
 # SOCIAL_AUTH_STEAM_USER_FIELDS = ('username', 'email', 'steamid', 'date_joined')
@@ -229,6 +224,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 # PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 # We have the folder gpy that houses all central settings etc. We want the outer folder of this (gpy_site)
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 
@@ -237,7 +233,7 @@ STATIC_URL = '/static/'
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'apps/main/static/'),
+    os.path.join(PROJECT_ROOT, 'apps/core/static/'),
     os.path.join(PROJECT_ROOT, 'apps/remote_admin/static/'),
 )
 
@@ -262,12 +258,6 @@ REST_FRAMEWORK = {
     ]
 }
 
-# ============================================================================
-# RCON TODO: Pull out into objects
-# ============================================================================
-
-RCON_SERVER_ADDRESS = ("45.32.224.44", 27015)
-RCON_PASSWORD = os.environ.get('RCON_PASSWORD')
 
 # ============================================================================
 # Logging
@@ -303,7 +293,7 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
         },
-        'main': {
+        'core': {
             'handlers': ['console'],
             'level': 'INFO',
         },

@@ -6,7 +6,7 @@ services:
     build: .
     container_name: django
     env_file: .env
-    command: /usr/local/bin/gunicorn gpy.wsgi:application -w 2 -k gevent -b :8000 --reload
+    command: /usr/local/bin/gunicorn gpy.wsgi:application -w 2 -k gevent -b :8000 -b :80 --reload
     environment:
       - "DJANGO_SETTINGS_MODULE=gpy.settings"
     env_file: .env

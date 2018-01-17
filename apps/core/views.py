@@ -4,7 +4,7 @@ from django.views.generic.base import ContextMixin
 
 
 class IndexView(View, ContextMixin):
-    template_name = 'core/index.html'
+    template_name = 'core/homepage.html'
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)

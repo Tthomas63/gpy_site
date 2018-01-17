@@ -6,8 +6,7 @@
     /*background-attachment: scroll;*/
     /*background-si*/
     /*background-size: 100% 50%;*/
-    background-attachment: fixed;
-!important;
+    background-attachment: fixed; !important;
 }
 
 body {

@@ -51,6 +51,6 @@ social-auth-core==1.4.0
 social-auth-storage-mongoengine==1.0.1
 steam==0.8.20
 tornado==4.5.2
-urllib3==1.22
+urllib3==1.24.2
 vdf==2.3
 whitenoise==3.3.0
